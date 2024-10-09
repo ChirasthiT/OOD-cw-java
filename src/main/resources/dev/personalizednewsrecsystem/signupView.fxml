@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="346.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.personalizednewsrecsystem.SignupView">
+   <children>
+      <Label layoutX="155.0" layoutY="59.0" text="Sign-up" />
+      <Label layoutX="36.0" layoutY="145.0" text="Email" />
+      <Label layoutX="24.0" layoutY="199.0" text="Password" />
+      <PasswordField layoutX="93.0" layoutY="195.0" promptText="********" />
+      <TextField layoutX="93.0" layoutY="141.0" promptText="someone@email.com" />
+      <Label layoutX="24.0" layoutY="234.0" prefHeight="26.0" prefWidth="54.0" text="Confrim" />
+      <PasswordField layoutX="93.0" layoutY="250.0" promptText="********" />
+      <Label layoutX="24.0" layoutY="255.0" text="Password" />
+      <Label layoutX="35.0" layoutY="93.0" text="Name" />
+      <TextField layoutX="93.0" layoutY="88.0" promptText="John Doe" />
+      <Button layoutX="87.0" layoutY="368.0" mnemonicParsing="false" text="Sign-up" />
+      <Button layoutX="191.0" layoutY="368.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="59.0" text="Back" />
+      <Label layoutX="18.0" layoutY="308.0" text="Preferences" />
+      <ComboBox layoutX="98.0" layoutY="305.0" prefWidth="150.0" />
+   </children>
+</Pane>

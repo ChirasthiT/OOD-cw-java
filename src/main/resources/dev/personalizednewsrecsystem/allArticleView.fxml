@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.Avatar?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="754.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.personalizednewsrecsystem.MainView">
+   <children>
+      <Avatar layoutX="533.0" layoutY="14.0" radius="20.0" />
+      <Button layoutX="516.0" layoutY="700.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="59.0" text="Back" />
+      <TextField layoutX="15.0" layoutY="21.0" prefHeight="26.0" prefWidth="51.0" text="Admin" />
+      <Button layoutX="37.0" layoutY="700.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="59.0" text="Delete" />
+      <Label layoutX="268.0" layoutY="25.0" text="All Articles" />
+      <ListView layoutX="14.0" layoutY="54.0" prefHeight="559.0" prefWidth="572.0" />
+      <Label layoutX="119.0" layoutY="636.0" text="Selected:" />
+      <TextField layoutX="180.0" layoutY="632.0" prefHeight="26.0" prefWidth="223.0" promptText="Article Title" />
+   </children>
+</AnchorPane>
