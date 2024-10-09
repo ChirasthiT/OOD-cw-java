@@ -3,7 +3,7 @@ package dev.personalizednewsrecsystem;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class HelloController {
+public class IndexController {
     @FXML
     private Label welcomeText;
 

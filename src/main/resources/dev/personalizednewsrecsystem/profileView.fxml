@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.Avatar?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="346.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.personalizednewsrecsystem.LoginView">
+   <children>
+      <TextField layoutX="130.0" layoutY="52.0" promptText="John Doe" />
+      <Button layoutX="14.0" layoutY="422.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="53.0" text="Edit" />
+      <Button layoutX="273.0" layoutY="422.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="59.0" text="Back" />
+      <Avatar layoutX="22.0" layoutY="33.0" radius="45.0" />
+      <TextField layoutX="125.0" layoutY="103.0" promptText="someone@email.com" />
+      <ListView layoutX="112.0" layoutY="180.0" prefHeight="49.0" prefWidth="200.0" />
+      <Label layoutX="23.0" layoutY="195.0" text="Preferences" />
+      <ListView layoutX="43.0" layoutY="294.0" prefHeight="90.0" prefWidth="260.0" />
+      <Label layoutX="137.0" layoutY="266.0" text="History" />
+      <Label layoutX="143.0" layoutY="14.0" text="Profile" />
+      <Button layoutX="31.0" layoutY="129.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="72.0" text="Change" />
+   </children>
+</Pane>
