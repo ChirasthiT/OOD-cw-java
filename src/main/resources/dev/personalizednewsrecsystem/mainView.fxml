@@ -1,42 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.control.Avatar?>
-<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="754.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.personalizednewsrecsystem.MainView">
    <children>
-      <Avatar layoutX="533.0" layoutY="14.0" radius="20.0" />
-      <Group layoutX="16.0" layoutY="54.0">
-         <children>
-            <Label layoutX="196.0" text="Recommended Article 1" />
-            <TextArea layoutY="14.0" prefHeight="117.0" prefWidth="567.0" />
-            <Button layoutX="185.0" layoutY="131.0" mnemonicParsing="false" text="Read" />
-            <Button layoutX="284.0" layoutY="131.0" mnemonicParsing="false" text="Skip" />
-         </children>
-      </Group>
-      <Group layoutX="23.0" layoutY="227.0">
-         <children>
-            <Label layoutX="192.0" layoutY="5.0" text="Recommended Article 2" />
-            <TextArea layoutY="18.0" prefHeight="117.0" prefWidth="567.0" />
-            <Button layoutX="182.0" layoutY="135.0" mnemonicParsing="false" text="Read" />
-            <Button layoutX="281.0" layoutY="135.0" mnemonicParsing="false" text="Skip" />
-         </children>
-      </Group>
-      <Group layoutX="17.0" layoutY="422.0">
-         <children>
-            <Label layoutX="193.0" text="Recommended Article 3" />
-            <TextArea layoutY="18.0" prefHeight="117.0" prefWidth="567.0" />
-            <Button layoutX="188.0" layoutY="135.0" mnemonicParsing="false" text="Read" />
-            <Button layoutX="287.0" layoutY="135.0" mnemonicParsing="false" text="Skip" />
-         </children>
-      </Group>
+      <Label layoutX="210.0" layoutY="45.0" text="Recommended Article 1" />
+      <TextArea editable="false" layoutX="14.0" layoutY="59.0" prefHeight="113.0" prefWidth="585.0" />
+      <Button layoutX="210.0" layoutY="176.0" mnemonicParsing="false" text="Read" />
+      <Button layoutX="304.0" layoutY="176.0" mnemonicParsing="false" text="Skip" />
+      <ImageView fitHeight="54.0" fitWidth="61.0" layoutX="537.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="215.0" layoutY="232.0" text="Recommended Article 2" />
+      <TextArea editable="false" layoutX="23.0" layoutY="245.0" prefHeight="117.0" prefWidth="567.0" />
+      <Button layoutX="205.0" layoutY="362.0" mnemonicParsing="false" text="Read" />
+      <Button layoutX="304.0" layoutY="362.0" mnemonicParsing="false" text="Skip" />
+      <Label layoutX="210.0" layoutY="422.0" text="Recommended Article 3" />
+      <TextArea editable="false" layoutX="17.0" layoutY="440.0" prefHeight="117.0" prefWidth="567.0" />
+      <Button layoutX="205.0" layoutY="557.0" mnemonicParsing="false" text="Read" />
+      <Button layoutX="304.0" layoutY="557.0" mnemonicParsing="false" text="Skip" />
       <Button layoutX="516.0" layoutY="700.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="59.0" text="Back" />
-      <TextField layoutX="14.0" layoutY="19.0" prefHeight="26.0" prefWidth="51.0" text="Admin" />
+      <TextField fx:id="Adminshow" editable="false" layoutX="14.0" layoutY="19.0" prefHeight="26.0" prefWidth="51.0" text="Admin" />
       <Button layoutX="45.0" layoutY="700.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="90.0" text="All Articles" />
    </children>
 </AnchorPane>
