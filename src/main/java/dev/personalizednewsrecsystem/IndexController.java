@@ -14,13 +14,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
-public class IndexController {
+public class IndexController extends HeadController{
     public Button signupbutton;
     public Button loginbutton;
     @FXML
     public Label infoText;
-    public Stage stage;
-    public Scene scene;
+
 
     public void loginmouseenter() {
         infoText.setText("Click to Log-In");
@@ -35,18 +34,10 @@ public class IndexController {
     }
 
     public void switchLogin(ActionEvent event) throws IOException {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("loginView.fxml")));
-            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+            transferFXML(event, "loginView.fxml");
     }
     public void switchSignup(ActionEvent event) throws IOException {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("signupView.fxml")));
-            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+            transferFXML(event, "signupView.fxml");
     }
 
 }
