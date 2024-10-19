@@ -14,7 +14,7 @@
       <PasswordField fx:id="loginpword" layoutX="94.0" layoutY="321.0" onMouseEntered="#loginPwordMouseEnter" onMouseExited="#mouseexit" promptText="********" />
       <TextField fx:id="loginemail" layoutX="94.0" layoutY="209.0" onMouseEntered="#loginEmailMouseEnter" onMouseExited="#mouseexit" promptText="someone@email.com" />
       <Button fx:id="loginbutton" layoutX="97.0" layoutY="378.0" mnemonicParsing="false" onAction="#loginClick" onMouseEntered="#loginButtonMouseEnter" onMouseExited="#mouseexit" prefHeight="26.0" prefWidth="59.0" text="Log-in" />
-      <Button fx:id="back" layoutX="201.0" layoutY="378.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="59.0" text="Back" />
+      <Button fx:id="backbutton" layoutX="201.0" layoutY="378.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="59.0" text="Back" onAction="#backButtonClick" />
       <Label fx:id="infoText" layoutY="446.0" prefHeight="17.0" prefWidth="346.0" />
    </children>
 </Pane>
