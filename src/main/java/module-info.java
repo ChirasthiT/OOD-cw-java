@@ -7,6 +7,8 @@ module dev.personalizednewsrecsystem {
     requires org.kordamp.bootstrapfx.core;
     requires mysql.connector.j;
     requires java.sql;
+    requires mongo.java.driver;
+    requires org.json;
 
     opens dev.personalizednewsrecsystem to javafx.fxml;
     exports dev.personalizednewsrecsystem;
