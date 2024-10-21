@@ -28,6 +28,14 @@ public class HeadController {
         this.userEmail = userEmail;
     }
 
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public String getFxml() {
+        return fxml;
+    }
+
     public void mouseExit() {
         infoText.setText("");
     }

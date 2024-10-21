@@ -34,7 +34,7 @@ public class SignupView extends HeadController {
         signpref.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE); // Multi selection
     }
 
-    public void signButtonClick(ActionEvent event) {
+    public void signButtonClick(ActionEvent event) throws IOException {
         email = signemail.getText().trim();
         String password = signpass.getText();
         String confirmPassword = signconfpass.getText();
@@ -53,12 +53,13 @@ public class SignupView extends HeadController {
         }
 
         if (!isValidEmail(email)) {
-            infoText.setText("Enter a valid email");
+            infoText.setText("Enter a valid email or Email already in use");
             return;
         }
 
         if (registerUser(email, password, name, selectedPreferences)) {
             infoText.setText("User registered successfully.");
+            transferFXML(event, email, "mainView.fxml");
         } else {
             infoText.setText("Registration failed. Email might already be registered.");
         }

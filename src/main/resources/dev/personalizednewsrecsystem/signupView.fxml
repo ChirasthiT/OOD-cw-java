@@ -19,10 +19,10 @@
       <Label layoutX="24.0" layoutY="255.0" text="Password" />
       <Label layoutX="35.0" layoutY="93.0" text="Name" />
       <TextField fx:id="signname" layoutX="93.0" layoutY="88.0" promptText="John Doe" />
-      <Button fx:id="signbutton" layoutX="87.0" layoutY="368.0" mnemonicParsing="false" onAction="#signButtonClick" text="Sign-up" />
-      <Button fx:id="backbutton" layoutX="191.0" layoutY="368.0" mnemonicParsing="false" onAction="#backButtonClick" prefHeight="31.0" prefWidth="59.0" text="Back" />
+      <Button fx:id="signbutton" layoutX="155.0" layoutY="400.0" mnemonicParsing="false" onAction="#signButtonClick" text="Sign-up" />
+      <Button fx:id="backbutton" layoutX="245.0" layoutY="400.0" mnemonicParsing="false" onAction="#backButtonClick" prefHeight="30.0" prefWidth="58.0" text="Back" />
       <Label layoutX="18.0" layoutY="308.0" text="Preferences" />
       <Label fx:id="infoText" layoutY="446.0" prefHeight="17.0" prefWidth="346.0" />
-      <ListView fx:id="signpref" layoutX="98.0" layoutY="302.0" prefHeight="30.0" prefWidth="159.0" />
+      <ListView fx:id="signpref" layoutX="97.0" layoutY="294.0" prefHeight="87.0" prefWidth="161.0" />
    </children>
 </Pane>
