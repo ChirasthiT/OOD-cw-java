@@ -9,6 +9,7 @@ module dev.personalizednewsrecsystem {
     requires java.sql;
     requires mongo.java.driver;
     requires org.json;
+    requires com.google.gson;
 
     opens dev.personalizednewsrecsystem to javafx.fxml;
     exports dev.personalizednewsrecsystem;

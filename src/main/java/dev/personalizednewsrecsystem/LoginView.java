@@ -32,7 +32,6 @@ public class LoginView extends HeadController {
     public void mouseexit() {
         infoText.setText("");
     }
-    DatabaseHandler databaseHandler = new DatabaseHandler();
 
     public void loginPwordMouseEnter() {
         infoText.setText("Enter the Password");
