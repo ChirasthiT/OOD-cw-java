@@ -1,74 +1,43 @@
 package dev.personalizednewsrecsystem;
 
+import com.google.gson.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 public class APIHandler {
     private static String recommend = "http://127.0.0.1:8000/recommend";
     private static String addOrUpdate = "http://127.0.0.1:8000/add_or_update_article";
 
-    public static Article getRecommendations(String preferences) {
+    public static Queue<Article> getRecommendations(String preferences) {
+        Queue<Article> articles = new LinkedList<>();
         try {
-            // Open a connection
+            // Setup connection
             URL url = new URL(recommend);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
+            conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
             conn.setDoOutput(true);
 
             // JSON payload
             String jsonInput = "{\"preferences\": \"" + preferences + "\"}";
-
-            // Request
             try (OutputStream os = conn.getOutputStream()) {
                 byte[] input = jsonInput.getBytes("utf-8");
                 os.write(input, 0, input.length);
             }
 
-            // Response
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
-            StringBuilder response = new StringBuilder();
-            String responseLine;
-            while ((responseLine = br.readLine()) != null) {
-                response.append(responseLine.trim());
-            }
-
-            // Response to JSON
-            JSONArray articlesArray = new JSONArray(response.toString());
-
-            // Assuming the response contains an array of articles, we'll return the first one
-            if (!articlesArray.isEmpty()) {
-                JSONObject firstArticle = articlesArray.getJSONObject(0);
-                String id = firstArticle.getString("id");
-                String title = firstArticle.getString("title");
-                String author = firstArticle.getString("author");
-                String content = firstArticle.getString("content");
-
-                return new Article(id, title, author, content);
-            }
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-        return null;
-    }
-
-    public List<Article> getRecommendations(String preferences, boolean threeorone) {
-        List<Article> articles = new ArrayList<>();
-
-        try {
-            URL url = new URL(recommend + "?preferences=" + preferences);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-
+            // Read the response
             BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String inputLine;
             StringBuilder response = new StringBuilder();
@@ -78,27 +47,33 @@ public class APIHandler {
             }
             in.close();
 
-            JSONArray jsonArray = new JSONArray(response.toString());
+            // Parse the JSON response
+            JSONObject jsonResponse = new JSONObject(response.toString());
+            JSONArray jsonArray = jsonResponse.getJSONArray("recommended_articles");
 
+            // Limit to 3 articles
             for (int i = 0; i < jsonArray.length() && i < 3; i++) {
                 JSONObject jsonArticle = jsonArray.getJSONObject(i);
-
                 Article article = new Article(
-                        jsonArticle.getString("id"),
-                        jsonArticle.getString("title"),
-                        jsonArticle.getString("author"),
-                        jsonArticle.getString("content")
+                        jsonArticle.optString("id", "N/A"),
+                        jsonArticle.optString("title", "Untitled"),
+                        jsonArticle.optString("author", "Unknown"),
+                        jsonArticle.optString("content", "No content available")
                 );
-
                 articles.add(article);
             }
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error retrieving recommendations", e);
         }
-
         return articles;
     }
+
+    // Overloaded method to get only one article
+//    public static Article getRecommendations(String preferences, boolean threeorone) {
+//        List<Article> allArticles = getRecommendations(preferences);
+//        return allArticles.getFirst();
+//    }
 
     public static void addorUpdate(Article article) {
         try {

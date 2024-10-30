@@ -3,12 +3,15 @@ import com.mongodb.MongoException;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 public class DatabaseHandler {
     private String sqlUrl = "jdbc:mysql://localhost:3306/OOD_CW";
@@ -19,6 +22,7 @@ public class DatabaseHandler {
     private String mongoUri = "mongodb://localhost:27017";
     private String mongodbName = "OOD_CW";
     private String mongoCollection = "articles";
+    MongoCollection<Document> collection;
 
     public DatabaseHandler() {
         try {
@@ -33,7 +37,7 @@ public class DatabaseHandler {
         try {
             MongoClient mongoClient = MongoClients.create(mongoUri);
             MongoDatabase database = mongoClient.getDatabase(mongodbName);
-            MongoCollection<Document> collection = database.getCollection(mongoCollection);
+            collection = database.getCollection(mongoCollection);
         } catch (MongoException e) {
             throw new RuntimeException(e);
         }
@@ -77,6 +81,24 @@ public class DatabaseHandler {
         }
     }
 
+    public String getUserPreferences(String email) {
+        String sqlQuery = "SELECT user_pref FROM preferences WHERE email = '" + email + "'";
+        String preferences = null;
+
+        if (connection != null) {
+            try {
+                Statement statement = this.connection.createStatement();
+                ResultSet rs = statement.executeQuery(sqlQuery);
+                while (rs.next()) {
+                    preferences = rs.getString("user_pref");
+                }
+            } catch (SQLException ignored) {
+            }
+        }
+        System.out.println(preferences);
+        return preferences;
+    }
+
     public void addPreferences(String email, ObservableList<String> selectedPreferences) {
         String preferences = String.join(",", selectedPreferences);
         if (connection != null) {
@@ -96,7 +118,6 @@ public class DatabaseHandler {
                 String sqlQuery = "SELECT COUNT(*) FROM user WHERE email = '" + email + "'";
                 Statement statement = this.connection.createStatement();
                 ResultSet rs = statement.executeQuery(sqlQuery);
-
                 if (rs.next()) {
                     int count = rs.getInt(1);
                     return count > 0;
@@ -109,15 +130,18 @@ public class DatabaseHandler {
     }
 
     public boolean adminCheck(String email) {
+        System.out.println(email);
         if (connection != null) {
             String sqlQuery = "SELECT admin FROM user WHERE email = '" + email + "'";
             try{
                 Statement statement = this.connection.createStatement();
                 ResultSet rs = statement.executeQuery(sqlQuery);
-
                 if (rs.next()) {
                     int isAdmin = rs.getInt("admin");
+                    System.out.println("Admin status found: " + isAdmin);
                     return isAdmin == 1;
+                } else {
+                    System.out.println("No user found with the given email.");
                 }
 
             } catch (SQLException e) {
@@ -125,5 +149,25 @@ public class DatabaseHandler {
             }
         }
         return false;
+    }
+
+    public Article fetchArticle(String id) {
+        try {
+            ObjectId objectId = new ObjectId(id);
+            Document article = collection.find(new Document("_id", objectId)).first();
+
+            if (article != null) {
+                String title = article.getString("title");
+                String author = article.getString("author");
+                String content = article.getString("content");
+                return new Article(id, title, author, content);
+            } else {
+                System.out.println("Article not found for ID: " + id);
+                return null;
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid ObjectId format: " + id);
+            return null;
+        }
     }
 }

@@ -11,20 +11,21 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-
 public class HeadController {
-
     public Stage stage;
     public Scene scene;
     public Label infoText;
     private String userEmail;
     private String fxml;
+    protected APIHandler apiHandler = new APIHandler();
+    protected DatabaseHandler databaseHandler = new DatabaseHandler();
 
     public void setFxml(String fxml) {
         this.fxml = fxml;
     }
 
     public void setUserEmail(String userEmail) {
+        System.out.println("Setting user email");
         this.userEmail = userEmail;
     }
 
@@ -74,6 +75,28 @@ public class HeadController {
         stage.show();
     }
 
+    public void transferFXML(ActionEvent event, String email, String fxml, String articleId) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+        Parent root;
+
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            infoText.setText("Error loading the view.");
+            return;
+        }
+
+        HeadController view = loader.getController();
+        view.setUserEmail(email);
+        view.setFxml(fxml);
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
     public void transferFXML(ActionEvent event, String fxml) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
         Parent root;
@@ -93,5 +116,7 @@ public class HeadController {
         stage.setScene(scene);
         stage.show();
     }
+
+
 }
 

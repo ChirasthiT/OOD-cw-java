@@ -52,6 +52,7 @@ public class Article {
     public String sendArticle() {
         return createJsonInput();
     }
+
     private String escapeJson(String value) {
         if (value == null) return "";
         return value.replace("\"", "\\\"")
