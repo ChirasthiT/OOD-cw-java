@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Stack;
 
 public class HeadController {
     public Stage stage;
@@ -17,8 +18,26 @@ public class HeadController {
     public Label infoText;
     private String userEmail;
     private String fxml;
-    protected APIHandler apiHandler = new APIHandler();
     protected DatabaseHandler databaseHandler = new DatabaseHandler();
+    protected static Stack<String> viewStack = new Stack<>();
+    protected String currentFxml;
+
+    public void setCurrentFxml(String currentFxml) {
+        this.currentFxml = currentFxml;
+    }
+
+    public void back(ActionEvent event) throws IOException {
+        if (!viewStack.isEmpty()) {
+            String previousFxml = viewStack.pop();
+            transferFXML(event, getUserEmail(), previousFxml);
+        }
+    }
+
+    public void addHistory(String fxml) {
+        if (viewStack != null) {
+            viewStack.push(fxml);
+        }
+    }
 
     public void setFxml(String fxml) {
         this.fxml = fxml;
@@ -39,19 +58,6 @@ public class HeadController {
 
     public void mouseExit() {
         infoText.setText("");
-    }
-
-    public void backButtonClick(ActionEvent event, String email, String fxml) throws IOException {
-        if (fxml == null || fxml.isEmpty()) {
-            throw new IllegalArgumentException("FXML file path is not set.");
-        }
-        transferFXML(event, email, fxml);
-    }
-    public void backButtonClick(ActionEvent event, String fxml) {
-        if (fxml == null || fxml.isEmpty()) {
-            throw new IllegalArgumentException("FXML file path is not set.");
-        }
-        transferFXML(event, fxml);
     }
 
     public void transferFXML(ActionEvent event, String email, String fxml) throws IOException {
@@ -100,6 +106,10 @@ public class HeadController {
     public void transferFXML(ActionEvent event, String fxml) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
         Parent root;
+
+        if (currentFxml != null) {
+            viewStack.push(currentFxml);
+        }
 
         try {
             root = loader.load();

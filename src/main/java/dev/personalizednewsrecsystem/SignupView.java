@@ -72,7 +72,7 @@ public class SignupView extends HeadController {
     }
 
     public void backButtonClick(ActionEvent event) throws IOException {
-        backButtonClick(event, "index.fxml");
+        back(event);
     }
 
     public boolean isValidEmail(String email) {

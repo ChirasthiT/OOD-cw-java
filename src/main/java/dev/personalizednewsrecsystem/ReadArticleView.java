@@ -2,10 +2,9 @@ package dev.personalizednewsrecsystem;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+
+import java.io.IOException;
 
 public class ReadArticleView extends HeadController {
 
@@ -18,6 +17,7 @@ public class ReadArticleView extends HeadController {
     public Button backbutton;
     public TextField articletitle;
     public TextArea articletextarea;
+    public TextField authorarea;
     private String articleId;
     private Article article;
 
@@ -36,6 +36,7 @@ public class ReadArticleView extends HeadController {
                 article = databaseHandler.fetchArticle(articleId);
                 articletitle.setText(article.getTitle());
                 articletextarea.setText(article.getContent());
+                authorarea.setText(article.getAuthor());
             }
         });
     }
@@ -48,18 +49,42 @@ public class ReadArticleView extends HeadController {
         return articleId;
     }
 
-    public void editbuttonClick(ActionEvent event) {
+    public void editbuttonClick() {
+        articletitle.setEditable(true);
+        articletextarea.setEditable(true);
+        authorarea.setEditable(true);
     }
 
-    public void deletebuttonClick(ActionEvent event) {
+    public void deletebuttonClick() {
+        boolean deleted = databaseHandler.deleteArticle(articleId);
+        if (deleted) {
+            // to-do add the back button
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("An error has occurred");
+            alert.setContentText("Article could no be Deleted!!");
+            alert.showAndWait();
+        }
     }
 
-    public void savebuttonClick(ActionEvent event) {
+    public void savebuttonClick() {
+        String title = articletitle.getText();
+        String content = articletextarea.getText();
+        String author = authorarea.getText();
+
+        APIHandler.addorUpdate(new Article(articleId, title, author, content));
     }
 
-    public void likebuttonclick(ActionEvent event) {
+    public void likebuttonclick() {
+        databaseHandler.addInteraction(getUserEmail(), articleId, "like");
     }
 
-    public void dislikebuttonclick(ActionEvent event) {
+    public void dislikebuttonclick() {
+        databaseHandler.addInteraction(getUserEmail(), articleId, "dislike");
+    }
+
+    public void backButtonClick(ActionEvent event) throws IOException {
+        back(event);
     }
 }

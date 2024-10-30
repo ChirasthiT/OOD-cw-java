@@ -9,14 +9,15 @@
 <AnchorPane prefHeight="754.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.personalizednewsrecsystem.ReadArticleView">
    <children>
       <TextField fx:id="Adminshow" editable="false" layoutX="14.0" layoutY="19.0" prefHeight="26.0" prefWidth="51.0" text="Admin" />
-      <Button fx:id="backbutton" layoutX="516.0" layoutY="700.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="59.0" text="Back" />
+      <Button fx:id="backbutton" layoutX="516.0" layoutY="700.0" mnemonicParsing="false" onAction="#backButtonClick" prefHeight="31.0" prefWidth="59.0" text="Back" />
       <Button fx:id="editbutton" layoutX="177.0" layoutY="700.0" mnemonicParsing="false" onAction="#editbuttonClick" prefHeight="31.0" prefWidth="59.0" text="Edit" />
       <Button fx:id="deletebutton" layoutX="329.0" layoutY="700.0" mnemonicParsing="false" onAction="#deletebuttonClick" prefHeight="31.0" prefWidth="59.0" text="Delete" />
       <Button fx:id="savebutton" layoutX="252.0" layoutY="700.0" mnemonicParsing="false" onAction="#savebuttonClick" prefHeight="31.0" prefWidth="59.0" text="Save" />
-      <TextArea fx:id="articletextarea" editable="false" layoutX="20.0" layoutY="70.0" prefHeight="614.0" prefWidth="560.0" />
+      <TextArea fx:id="articletextarea" editable="false" layoutX="20.0" layoutY="70.0" prefHeight="614.0" prefWidth="560.0" wrapText="true" />
       <Slider layoutX="560.0" layoutY="79.0" orientation="VERTICAL" prefHeight="614.0" prefWidth="26.0" />
       <Button fx:id="likebutton" layoutX="33.0" layoutY="700.0" mnemonicParsing="false" onAction="#likebuttonclick" text="Like" />
       <Button fx:id="dislikebutton" layoutX="103.0" layoutY="700.0" mnemonicParsing="false" onAction="#dislikebuttonclick" text="Dislike" />
-      <TextField fx:id="articletitle" layoutX="63.0" layoutY="45.0" prefHeight="26.0" prefWidth="475.0" />
+      <TextField fx:id="articletitle" editable="false" layoutX="74.0" layoutY="32.0" prefHeight="26.0" prefWidth="334.0" />
+      <TextField fx:id="authorarea" editable="false" layoutX="421.0" layoutY="32.0" />
    </children>
 </AnchorPane>

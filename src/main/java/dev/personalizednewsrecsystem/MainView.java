@@ -3,15 +3,19 @@ package dev.personalizednewsrecsystem;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Queue;
+import java.util.function.Consumer;
 
 public class MainView extends HeadController{
     public TextField Adminshow;
@@ -31,8 +35,17 @@ public class MainView extends HeadController{
     public Button allArticleButton;
     private Queue<Article> articles;
     protected String id1, id2, id3;
+    protected String currentFxml = "mainView.fxml";
 
-    private String fxml = "readArticleView.fxml";
+    public void setId1(String id1) {
+        this.id1 = id1;
+    }
+    public void setId2(String id2) {
+        this.id2 = id2;
+    }
+    public void setId3(String id3) {
+        this.id3 = id3;
+    }
 
     public void initialize() {
         Platform.runLater(() -> {
@@ -46,12 +59,13 @@ public class MainView extends HeadController{
             }
         });
     }
-    public void setArticlesAndTitles(TextArea textArea, Label label, String id) {
-        if (articles != null || !articles.isEmpty()) {
+    public void setArticlesAndTitles(TextArea textArea, Label label, Consumer<String> setId) {
+        if (articles != null && !articles.isEmpty()) {
             Article article = articles.poll();
             textArea.setText(article.getContent());
             label.setText(article.getTitle());
-            id = article.getId();
+            setId.accept(article.getId());
+            setId.accept(article.getId());
         } else {
             textArea.setText("No articles to recommend");
         }
@@ -65,32 +79,57 @@ public class MainView extends HeadController{
     public void setArticlesAndTitles() {
         String pref = databaseHandler.getUserPreferences(getUserEmail());
         articles = APIHandler.getRecommendations(pref);
-        setArticlesAndTitles(article1, articleLabel1, id1);
-        setArticlesAndTitles(article2, articleLabel2, id2);
-        setArticlesAndTitles(article3, articleLabel3, id3);
+        setArticlesAndTitles(article1, articleLabel1, this::setId1);
+        setArticlesAndTitles(article2, articleLabel2, this::setId2);
+        setArticlesAndTitles(article3, articleLabel3, this::setId3);
     }
 
-    public void backButtonClick(ActionEvent event) {
-        backButtonClick(event, getFxml());
+    public void backButtonClick(ActionEvent event) throws IOException {
+        back(event);
     }
 
     private void transfertoArticleView(String id, ActionEvent event, String email) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("readArticleView.fxml"));
+        Parent root = loader.load();
         ReadArticleView view = loader.getController();
+        view.setUserEmail(email);
         view.setArticleId(id);
-        transferFXML(event, email, "mainView.fxml");
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
     }
     public void readbuttonClick(ActionEvent event) throws IOException {
         Button clickedButton = (Button) event.getSource();
 
         if (clickedButton == read1) {
+            addHistory("mainView.fxml");
             transfertoArticleView(id1, event, getUserEmail());
-
+            databaseHandler.addInteraction(getUserEmail(), id1, "view");
         } else if (clickedButton == read2) {
+            addHistory("mainView.fxml");
             transfertoArticleView(id2, event, getUserEmail());
-
+            databaseHandler.addInteraction(getUserEmail(), id2, "view");
         } else if (clickedButton == read3) {
+            addHistory("mainView.fxml");
             transfertoArticleView(id3, event, getUserEmail());
+            databaseHandler.addInteraction(getUserEmail(), id3, "view");
+        }
+    }
+
+    public void skipbuttonClick(ActionEvent event) {
+        Button clickedButton = (Button) event.getSource();
+
+        if (clickedButton == skip1) {
+            setArticlesAndTitles(article1, articleLabel1, this::setId1);
+            databaseHandler.addInteraction(getUserEmail(), id1, "skip");
+        } else if (clickedButton == skip2) {
+            setArticlesAndTitles(article2, articleLabel2, this::setId1);
+            databaseHandler.addInteraction(getUserEmail(), id2, "skip");
+        } else if (clickedButton == skip3) {
+            setArticlesAndTitles(article3, articleLabel3, this::setId1);
+            databaseHandler.addInteraction(getUserEmail(), id3, "skip");
         }
     }
 }

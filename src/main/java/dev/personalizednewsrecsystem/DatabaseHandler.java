@@ -170,4 +170,26 @@ public class DatabaseHandler {
             return null;
         }
     }
+
+    public void addInteraction(String email, String articleId, String type) {
+        String sqlQuery = "INSERT INTO history (email, article_id, interaction_type, interaction_count) " +
+                "VALUES ('" + email + "', '" + articleId + "', '" + type + "', 1) " +
+                "ON DUPLICATE KEY UPDATE interaction_count = interaction_count + 1";
+        try{
+            Statement statement = this.connection.createStatement();
+            statement.executeUpdate(sqlQuery);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean deleteArticle(String id) {
+        try {
+            ObjectId objectId = new ObjectId(id);
+            long deletedCount = collection.deleteOne(new Document("_id", objectId)).getDeletedCount();
+            return deletedCount > 0;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }
