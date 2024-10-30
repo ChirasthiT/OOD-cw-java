@@ -34,9 +34,11 @@ public class IndexController extends HeadController{
     }
 
     public void switchLogin(ActionEvent event) throws IOException {
+            addHistory("index.fxml");
             transferFXML(event, "loginView.fxml");
     }
     public void switchSignup(ActionEvent event) throws IOException {
+            addHistory("index.fxml");
             transferFXML(event, "signupView.fxml");
     }
 

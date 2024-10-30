@@ -24,10 +24,8 @@ public class LoginView extends HeadController {
     public Stage stage;
     public Scene scene;
     public Button backbutton;
-    FXMLLoader loader;
-    Parent root;
-
     private String fxml = "mainView.fxml";
+    protected String currentFxml = "loginView.fxml";
 
     public void mouseexit() {
         infoText.setText("");
@@ -59,7 +57,7 @@ public class LoginView extends HeadController {
                 if (rs != null && rs.next()) {
                     // Success message
                     infoText.setText("Login successful!");
-
+                    addHistory("loginView.fxml");
                     // Get the controller of the new scene
                     transferFXML(event, email, fxml);
 
@@ -80,7 +78,7 @@ public class LoginView extends HeadController {
         }
     }
 
-    public void backButtonClick(ActionEvent event) {
-        backButtonClick(event, "index.fxml");
+    public void backButtonClick(ActionEvent event) throws IOException {
+        back(event);
     }
 }
