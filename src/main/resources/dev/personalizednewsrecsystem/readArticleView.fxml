@@ -19,5 +19,6 @@
       <Button fx:id="dislikebutton" layoutX="103.0" layoutY="700.0" mnemonicParsing="false" onAction="#dislikebuttonclick" text="Dislike" />
       <TextField fx:id="articletitle" editable="false" layoutX="74.0" layoutY="32.0" prefHeight="26.0" prefWidth="334.0" />
       <TextField fx:id="authorarea" editable="false" layoutX="421.0" layoutY="32.0" />
+      <Button fx:id="profile" layoutX="533.0" layoutY="4.0" mnemonicParsing="false" onAction="#profilebuttonClick" text="Profile" />
    </children>
 </AnchorPane>

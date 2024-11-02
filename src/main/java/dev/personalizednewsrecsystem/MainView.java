@@ -78,7 +78,7 @@ public class MainView extends HeadController{
 
     public void setArticlesAndTitles() {
         String pref = databaseHandler.getUserPreferences(getUserEmail());
-        articles = APIHandler.getRecommendations(pref);
+        articles = APIHandler.getRecommendations(pref, getUserEmail());
         setArticlesAndTitles(article1, articleLabel1, this::setId1);
         setArticlesAndTitles(article2, articleLabel2, this::setId2);
         setArticlesAndTitles(article3, articleLabel3, this::setId3);
@@ -88,7 +88,7 @@ public class MainView extends HeadController{
         back(event);
     }
 
-    private void transfertoArticleView(String id, ActionEvent event, String email) throws IOException {
+    protected void transfertoArticleView(String id, ActionEvent event, String email) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("readArticleView.fxml"));
         Parent root = loader.load();
         ReadArticleView view = loader.getController();
@@ -131,5 +131,15 @@ public class MainView extends HeadController{
             setArticlesAndTitles(article3, articleLabel3, this::setId1);
             databaseHandler.addInteraction(getUserEmail(), id3, "skip");
         }
+    }
+
+    public void profilebuttonClick(ActionEvent event) throws IOException {
+        addHistory("mainView.fxml");
+        transferFXML(event, getUserEmail(), "profileView.fxml");
+    }
+
+    public void allArticlebuttonClick(ActionEvent event) throws IOException {
+        addHistory("mainView.fxml");
+        transferFXML(event, getUserEmail(), "allArticleView.fxml");
     }
 }

@@ -20,7 +20,7 @@ public class APIHandler {
     private static String recommend = "http://127.0.0.1:8000/recommend";
     private static String addOrUpdate = "http://127.0.0.1:8000/add_or_update_article";
 
-    public static Queue<Article> getRecommendations(String preferences) {
+    public static Queue<Article> getRecommendations(String preferences, String email) {
         Queue<Article> articles = new LinkedList<>();
         try {
             // Setup connection
@@ -31,7 +31,7 @@ public class APIHandler {
             conn.setDoOutput(true);
 
             // JSON payload
-            String jsonInput = "{\"preferences\": \"" + preferences + "\"}";
+            String jsonInput = "{\"email\": \"" + email + "\", \"preferences\": \"" + preferences + "\"}";
             try (OutputStream os = conn.getOutputStream()) {
                 byte[] input = jsonInput.getBytes("utf-8");
                 os.write(input, 0, input.length);
