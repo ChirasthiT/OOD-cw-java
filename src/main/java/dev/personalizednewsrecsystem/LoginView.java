@@ -48,10 +48,10 @@ public class LoginView extends HeadController {
         if (!loginemail.getText().isEmpty() && !loginpword.getText().isEmpty()) {
             String email = loginemail.getText().trim();
             String pwd = loginpword.getText();
-            String sqlQuery = "SELECT * FROM user WHERE email = '" + email + "' AND password = '" + pwd + "'";
+
 
             try {
-                ResultSet rs = databaseHandler.fetchUser(sqlQuery);
+                ResultSet rs = databaseHandler.fetchUser(email, pwd);
 
                 // Checking if any user exists with the entered email and password
                 if (rs != null && rs.next()) {

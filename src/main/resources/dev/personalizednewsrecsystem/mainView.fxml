@@ -22,7 +22,8 @@
       <Button fx:id="skip3" layoutX="304.0" layoutY="557.0" mnemonicParsing="false" onAction="#skipbuttonClick" text="Skip" />
       <Button fx:id="backbutton" layoutX="516.0" layoutY="700.0" mnemonicParsing="false" onAction="#backButtonClick" prefHeight="31.0" prefWidth="59.0" text="Back" />
       <TextField fx:id="Adminshow" editable="false" layoutX="14.0" layoutY="19.0" prefHeight="26.0" prefWidth="51.0" text="Admin" />
-      <Button fx:id="allArticleButton" layoutX="20.0" layoutY="700.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="90.0" text="All Articles" />
+      <Button fx:id="allArticleButton" layoutX="20.0" layoutY="700.0" mnemonicParsing="false" onAction="#allArticlebuttonClick" prefHeight="31.0" prefWidth="90.0" text="All Articles" />
       <Label layoutX="232.0" layoutY="23.0" text="Reccomendations" />
+      <Button fx:id="profile" layoutX="531.0" layoutY="11.0" mnemonicParsing="false" onAction="#profilebuttonClick" text="Profile" />
    </children>
 </AnchorPane>

@@ -55,10 +55,10 @@ public class ReadArticleView extends HeadController {
         authorarea.setEditable(true);
     }
 
-    public void deletebuttonClick() {
+    public void deletebuttonClick(ActionEvent event) throws IOException {
         boolean deleted = databaseHandler.deleteArticle(articleId);
         if (deleted) {
-            // to-do add the back button
+            back(event);
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
@@ -86,5 +86,10 @@ public class ReadArticleView extends HeadController {
 
     public void backButtonClick(ActionEvent event) throws IOException {
         back(event);
+    }
+
+    public void profilebuttonClick(ActionEvent event) throws IOException {
+        addHistory("mainView.fxml");
+        transferFXML(event, getUserEmail(), "profileView.fxml");
     }
 }

@@ -1,15 +1,19 @@
 package dev.personalizednewsrecsystem;
 import com.mongodb.MongoException;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import javafx.scene.control.ListView;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -57,7 +61,9 @@ public class DatabaseHandler {
         }
     }
 
-    public ResultSet fetchUser(String sqlQuery) {
+    public ResultSet fetchUser(String email, String pwd) {
+        String sqlQuery = "SELECT * FROM user WHERE email = '" + email + "' AND password = '" + pwd + "'";
+
         if (connection != null) {
             try {
                 Statement statement = this.connection.createStatement();
@@ -191,5 +197,69 @@ public class DatabaseHandler {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public User getUserInfo(String email) {
+        String sqlQuery = "SELECT * FROM user WHERE email = '" + email + "'";
+        User user = null;
+
+        try {
+            Statement statement = this.connection.createStatement();
+            ResultSet rs = statement.executeQuery(sqlQuery);
+
+            if (rs.next()) {
+                String name = rs.getString("username");
+                String password = rs.getString("password");
+                user = new User(email, name, password);
+            } else {
+                System.out.println("No user found with the given email.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error retrieving user information: " + e.getMessage());
+        }
+
+        return user;
+    }
+
+    public ObservableList<String> getUserHistory(String email) {
+        String sqlQuery = "SELECT article_id, interaction_type, interaction_count FROM history WHERE email = '" + email + "'";
+        ObservableList<String> historyList = FXCollections.observableArrayList();
+
+        if (connection != null) {
+            try {
+                Statement statement = this.connection.createStatement();
+                ResultSet rs = statement.executeQuery(sqlQuery);
+
+                while (rs.next()) {
+                    String articleId = rs.getString("article_id");
+                    String interactionType = rs.getString("interaction_type");
+                    int interactionCount = rs.getInt("interaction_count");
+
+                    String historyRecord = "Article ID: " + articleId +
+                            ", Interaction: " + interactionType +
+                            ", Count: " + interactionCount;
+                    historyList.add(historyRecord);
+                }
+            } catch (SQLException e) {
+                System.out.println("Error retrieving user history: " + e.getMessage());
+            }
+        }
+        return historyList;
+    }
+
+    public Map<String, Article> fetchAllArticles() {
+        Map<String, Article> articlesMap = new HashMap<>();
+
+        for (Document doc : collection.find()) {
+            String title = doc.getString("title");
+            String content = doc.getString("content");
+            String author = doc.getString("author");
+            String id = (doc.get("_id") instanceof ObjectId)
+                    ? doc.getObjectId("_id").toString()
+                    : doc.getString("_id");
+            articlesMap.put(title, new Article(id, title, author, content));
+        }
+
+        return articlesMap;
     }
 }
