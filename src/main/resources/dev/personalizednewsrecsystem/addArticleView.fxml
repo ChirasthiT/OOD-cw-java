@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="754.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.personalizednewsrecsystem.AddArticleView">
+   <children>
+      <Button fx:id="backbutton" layoutX="516.0" layoutY="700.0" mnemonicParsing="false" onAction="#backbuttonClick" prefHeight="31.0" prefWidth="59.0" text="Back" />
+      <TextField fx:id="Adminshow" editable="false" layoutX="15.0" layoutY="21.0" prefHeight="26.0" prefWidth="51.0" text="Admin" />
+      <Button fx:id="addButton" layoutX="37.0" layoutY="700.0" mnemonicParsing="false" onAction="#addbuttonClick" prefHeight="31.0" prefWidth="59.0" text="Add" />
+      <Label layoutX="268.0" layoutY="25.0" text="Add Articles" />
+      <Button fx:id="Profile" layoutX="533.0" layoutY="22.0" mnemonicParsing="false" onAction="#profilebuttonClick" text="Profile" />
+      <TextField fx:id="titleArea" layoutX="52.0" layoutY="103.0" prefHeight="25.0" prefWidth="216.0" />
+      <TextField fx:id="authorArea" layoutX="381.0" layoutY="103.0" prefHeight="25.0" prefWidth="216.0" />
+      <Label layoutX="15.0" layoutY="107.0" text="Title:" />
+      <Label layoutX="335.0" layoutY="107.0" text="Author:" />
+      <Label layoutX="279.0" layoutY="145.0" text="Content:" />
+      <TextArea fx:id="contentArea" layoutX="15.0" layoutY="162.0" prefHeight="533.0" prefWidth="571.0" />
+   </children>
+</AnchorPane>

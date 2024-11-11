@@ -20,7 +20,7 @@ public class APIHandler {
     private static String recommend = "http://127.0.0.1:8000/recommend";
     private static String addOrUpdate = "http://127.0.0.1:8000/add_or_update_article";
 
-    public static Queue<Article> getRecommendations(String preferences, String email) {
+    public static Queue<Article> getRecommendations(String preferences, String email) { // TODO Fix the 404 errror
         Queue<Article> articles = new LinkedList<>();
         try {
             // Setup connection

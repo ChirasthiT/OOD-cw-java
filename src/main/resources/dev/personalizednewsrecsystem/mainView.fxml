@@ -8,22 +8,22 @@
 
 <AnchorPane prefHeight="754.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.personalizednewsrecsystem.MainView">
    <children>
-      <Label fx:id="articleLabel1" layoutX="210.0" layoutY="45.0" />
+      <Label fx:id="articleLabel1" layoutX="71.0" layoutY="42.0" prefHeight="18.0" prefWidth="460.0" />
       <TextArea fx:id="article1" editable="false" layoutX="14.0" layoutY="59.0" prefHeight="113.0" prefWidth="585.0" />
       <Button fx:id="read1" layoutX="210.0" layoutY="176.0" mnemonicParsing="false" onAction="#readbuttonClick" text="Read" />
       <Button fx:id="skip1" layoutX="304.0" layoutY="176.0" mnemonicParsing="false" onAction="#skipbuttonClick" text="Skip" />
-      <Label fx:id="articleLabel2" layoutX="215.0" layoutY="232.0" />
+      <Label fx:id="articleLabel2" layoutX="74.0" layoutY="227.0" prefHeight="18.0" prefWidth="460.0" />
       <TextArea fx:id="article2" editable="false" layoutX="23.0" layoutY="245.0" prefHeight="117.0" prefWidth="567.0" />
       <Button fx:id="read2" layoutX="205.0" layoutY="362.0" mnemonicParsing="false" onAction="#readbuttonClick" text="Read" />
       <Button fx:id="skip2" layoutX="304.0" layoutY="362.0" mnemonicParsing="false" onAction="#skipbuttonClick" text="Skip" />
-      <Label fx:id="articleLabel3" layoutX="210.0" layoutY="422.0" />
+      <Label fx:id="articleLabel3" layoutX="76.0" layoutY="422.0" prefHeight="18.0" prefWidth="460.0" />
       <TextArea fx:id="article3" editable="false" layoutX="17.0" layoutY="440.0" prefHeight="117.0" prefWidth="567.0" />
       <Button fx:id="read3" layoutX="205.0" layoutY="557.0" mnemonicParsing="false" onAction="#readbuttonClick" text="Read" />
       <Button fx:id="skip3" layoutX="304.0" layoutY="557.0" mnemonicParsing="false" onAction="#skipbuttonClick" text="Skip" />
       <Button fx:id="backbutton" layoutX="516.0" layoutY="700.0" mnemonicParsing="false" onAction="#backButtonClick" prefHeight="31.0" prefWidth="59.0" text="Back" />
       <TextField fx:id="Adminshow" editable="false" layoutX="14.0" layoutY="19.0" prefHeight="26.0" prefWidth="51.0" text="Admin" />
       <Button fx:id="allArticleButton" layoutX="20.0" layoutY="700.0" mnemonicParsing="false" onAction="#allArticlebuttonClick" prefHeight="31.0" prefWidth="90.0" text="All Articles" />
-      <Label layoutX="232.0" layoutY="23.0" text="Reccomendations" />
+      <Label layoutX="237.0" layoutY="10.0" text="Reccomendations" />
       <Button fx:id="profile" layoutX="531.0" layoutY="11.0" mnemonicParsing="false" onAction="#profilebuttonClick" text="Profile" />
    </children>
 </AnchorPane>

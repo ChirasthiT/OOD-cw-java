@@ -8,10 +8,10 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="468.0" prefWidth="346.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.personalizednewsrecsystem.ProfileView">
    <children>
-      <TextField fx:id="username" editable="false" layoutX="87.0" layoutY="50.0" promptText="John Doe" />
+      <TextField fx:id="username" editable="false" layoutX="126.0" layoutY="54.0" promptText="John Doe" />
       <Button fx:id="editbutton" layoutX="14.0" layoutY="422.0" mnemonicParsing="false" onAction="#editbuttonClick" prefHeight="32.0" prefWidth="53.0" text="Edit" />
       <Button fx:id="backbutton" layoutX="273.0" layoutY="422.0" mnemonicParsing="false" onAction="#backbuttonClick" prefHeight="32.0" prefWidth="59.0" text="Back" />
-      <TextField fx:id="emailfield" editable="false" layoutX="86.0" layoutY="96.0" promptText="someone@email.com" />
+      <TextField fx:id="emailfield" editable="false" layoutX="122.0" layoutY="96.0" promptText="someone@email.com" />
       <ListView fx:id="preflistview" layoutX="12.0" layoutY="168.0" prefHeight="90.0" prefWidth="324.0" />
       <Label layoutX="126.0" layoutY="150.0" text="Preferences" />
       <ListView layoutX="43.0" layoutY="294.0" prefHeight="90.0" prefWidth="260.0" />
@@ -20,5 +20,7 @@
       <ListView fx:id="historylistview" layoutX="11.0" layoutY="301.0" prefHeight="90.0" prefWidth="324.0" />
       <Button fx:id="savebutton" layoutX="79.0" layoutY="422.0" mnemonicParsing="false" onAction="#savebuttonClick" prefHeight="32.0" prefWidth="53.0" text="Save" />
       <TextField fx:id="Adminshow" editable="false" layoutX="14.0" layoutY="19.0" prefHeight="26.0" prefWidth="51.0" text="Admin" />
+      <Label layoutX="52.0" layoutY="58.0" text="Name:" />
+      <Label layoutX="52.0" layoutY="100.0" text="Email:" />
    </children>
 </Pane>

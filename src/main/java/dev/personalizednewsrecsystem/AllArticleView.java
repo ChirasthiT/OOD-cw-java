@@ -15,6 +15,7 @@ public class AllArticleView extends HeadController{
     public Button backbutton;
     public Button viewbutton;
     public ListView<String> articlelistview;
+    public Button addarticlebutton;
     Map<String, Article> articleMap;
 
     public void initialize() {
@@ -51,4 +52,8 @@ public class AllArticleView extends HeadController{
         }
     }
 
+    public void addArtcleClick(ActionEvent event) throws IOException {
+        addHistory("allArticleView.fxml");
+        transferFXML(event, getUserEmail(), "addArticleView.fxml");
+    }
 }
