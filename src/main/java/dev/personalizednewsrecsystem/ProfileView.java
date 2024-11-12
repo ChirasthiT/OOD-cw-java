@@ -7,7 +7,6 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 public class ProfileView extends HeadController {
@@ -19,7 +18,7 @@ public class ProfileView extends HeadController {
     public Button backbutton;
     public Button savebutton;
     public TextField Adminshow;
-    User user;
+    private User user;
 
     public void initialize() {
         Platform.runLater(() -> {
@@ -45,7 +44,7 @@ public class ProfileView extends HeadController {
         List<String> splitSelectedPreferences = List.of((selectedPreferences.split(",\\s*")));
         ObservableList<String> allPreferences = FXCollections.observableArrayList(
                 "Technology", "Health", "Sports", "Entertainment", "Science"
-        );
+        ); // TODO Update the preferences and the logic for automatic highlighting and changing
 
         preflistview.setItems(allPreferences);
 
