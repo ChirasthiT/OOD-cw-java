@@ -42,7 +42,7 @@ public class AllArticleView extends HeadController{
     }
 
     public void viewbuttonClick(ActionEvent event) throws IOException {
-        String selectedTitle = (String) articlelistview.getSelectionModel().getSelectedItem();
+        String selectedTitle = articlelistview.getSelectionModel().getSelectedItem();
 
         if (selectedTitle != null) {
             Article article = articleMap.get(selectedTitle); // Retrieve content based on title

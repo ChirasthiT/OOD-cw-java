@@ -1,6 +1,7 @@
 package dev.personalizednewsrecsystem;
 
 import com.google.gson.*;
+import javafx.scene.control.Alert;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import com.google.gson.JsonObject;
@@ -20,7 +21,7 @@ public class APIHandler {
     private static String recommend = "http://127.0.0.1:8000/recommend";
     private static String addOrUpdate = "http://127.0.0.1:8000/add_or_update_article";
 
-    public static Queue<Article> getRecommendations(String preferences, String email) { // TODO Fix the 404 errror
+    public static Queue<Article> getRecommendations(String preferences, String email) {
         Queue<Article> articles = new LinkedList<>();
         try {
             // Setup connection
@@ -35,6 +36,18 @@ public class APIHandler {
             try (OutputStream os = conn.getOutputStream()) {
                 byte[] input = jsonInput.getBytes("utf-8");
                 os.write(input, 0, input.length);
+            }
+
+            int responseCode = conn.getResponseCode();
+            if (responseCode == 404) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("An error has occurred");
+                alert.setContentText("No Articles found for your preferences");
+                alert.showAndWait();
+                return articles;  // Return an empty queue if 404
+            } else if (responseCode != 200) {
+                throw new RuntimeException("Error: Received HTTP response code " + responseCode);
             }
 
             // Read the response
