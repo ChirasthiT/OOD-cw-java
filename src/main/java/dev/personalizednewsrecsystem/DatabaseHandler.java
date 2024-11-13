@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.function.Supplier;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -27,6 +31,8 @@ public class DatabaseHandler {
     private String mongodbName = "OOD_CW";
     private String mongoCollection = "articles";
     MongoCollection<Document> collection;
+
+    private final ExecutorService executorService = Executors.newCachedThreadPool();
 
     public DatabaseHandler() {
         try {
@@ -157,6 +163,11 @@ public class DatabaseHandler {
         return false;
     }
 
+    // admincheck concurrent
+    public CompletableFuture<Boolean> adminCheckAsync(String email) {
+        return CompletableFuture.supplyAsync(() -> adminCheck(email), executorService);
+    }
+
     public Article fetchArticle(String id) {
         try {
             ObjectId objectId = new ObjectId(id);
@@ -247,6 +258,10 @@ public class DatabaseHandler {
         return historyList;
     }
 
+    public CompletableFuture<ObservableList<String>> getUserHistoryAsync(String email) {
+        return CompletableFuture.supplyAsync(() -> getUserHistory(email), executorService);
+    }
+
     public Map<String, Article> fetchAllArticles() {
         Map<String, Article> articlesMap = new HashMap<>();
 
@@ -261,5 +276,10 @@ public class DatabaseHandler {
         }
 
         return articlesMap;
+    }
+
+    // fetchAllArticles concurrent
+    public CompletableFuture<Map<String, Article>> fetchAllArticlesAsync() {
+        return CompletableFuture.supplyAsync(this::fetchAllArticles, executorService);
     }
 }

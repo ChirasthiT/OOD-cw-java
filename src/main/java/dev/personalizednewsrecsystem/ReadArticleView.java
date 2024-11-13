@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 public class ReadArticleView extends HeadController {
 
@@ -27,7 +28,13 @@ public class ReadArticleView extends HeadController {
             if (email == null || email.isEmpty()) {
                 System.out.println("User email not set yet.");
             } else {
-                boolean adCheck = databaseHandler.adminCheck(email);
+                boolean adCheck;
+                try {
+                    adCheck = databaseHandler.adminCheckAsync(email).get();
+                } catch (InterruptedException | ExecutionException e) {
+                    throw new RuntimeException(e);
+                }
+
                 Adminshow.setVisible(adCheck);
                 editbutton.setVisible(adCheck);
                 savebutton.setVisible(adCheck);

@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 public class MainView extends HeadController{
@@ -53,12 +54,19 @@ public class MainView extends HeadController{
             if (email == null || email.isEmpty()) {
                 System.out.println("User email not set yet.");
             } else {
-                System.out.println("User email: " + email);
-                Adminshow.setVisible(databaseHandler.adminCheck(email));
-                setArticlesAndTitles();
+                databaseHandler.adminCheckAsync(email).thenAccept(isAdmin -> {
+                    Platform.runLater(() -> Adminshow.setVisible(isAdmin));
+                }).exceptionally(ex -> null);
+
+                try {
+                    setArticlesAndTitles();
+                } catch (ExecutionException | InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
     }
+
     public void setArticlesAndTitles(TextArea textArea, Label label, Consumer<String> setId) {
         if (articles != null && !articles.isEmpty()) {
             Article article = articles.poll();
@@ -76,9 +84,11 @@ public class MainView extends HeadController{
         label.setText(article.getTitle());
     }
 
-    public void setArticlesAndTitles() {
+    public void setArticlesAndTitles() throws ExecutionException, InterruptedException {
         String pref = databaseHandler.getUserPreferences(getUserEmail());
-        articles = APIHandler.getRecommendations(pref, getUserEmail());
+
+        articles = APIHandler.getRecommendationsAsync(pref, getUserEmail()).get();
+
         setArticlesAndTitles(article1, articleLabel1, this::setId1);
         setArticlesAndTitles(article2, articleLabel2, this::setId2);
         setArticlesAndTitles(article3, articleLabel3, this::setId3);

@@ -26,15 +26,21 @@ public class ProfileView extends HeadController {
             if (email == null || email.isEmpty()) {
                 System.out.println("User email not set yet.");
             } else {
-                System.out.println("User email: " + email);
-                Adminshow.setVisible(databaseHandler.adminCheck(email));
+                databaseHandler.adminCheckAsync(email).thenAccept(isAdmin -> {
+                    Platform.runLater(() -> Adminshow.setVisible(isAdmin));
+                }).exceptionally(ex -> null);
+
                 savebutton.setVisible(false);
                 user = databaseHandler.getUserInfo(email);
                 username.setText(user.getName());
                 emailfield.setText(user.getEmail());
                 highlightPreferences(databaseHandler.getUserPreferences(email));
                 preflistview.setEditable(false);
-                historylistview.setItems(databaseHandler.getUserHistory(email));
+
+                databaseHandler.getUserHistoryAsync(email).thenAccept(history -> {
+                    Platform.runLater(() -> historylistview.setItems(history));
+                }).exceptionally(ex -> null);
+
                 historylistview.setEditable(false);
             }
         });

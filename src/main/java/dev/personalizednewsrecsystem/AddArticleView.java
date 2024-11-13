@@ -22,8 +22,9 @@ public class AddArticleView extends HeadController {
             if (email == null || email.isEmpty()) {
                 System.out.println("User email not set yet.");
             } else {
-                System.out.println("User email: " + email);
-                Adminshow.setVisible(databaseHandler.adminCheck(email));
+                databaseHandler.adminCheckAsync(email).thenAccept(isAdmin -> {
+                    Platform.runLater(() -> Adminshow.setVisible(isAdmin));
+                }).exceptionally(ex -> null);
             }
         });
     }
