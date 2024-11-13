@@ -9,7 +9,7 @@
 <AnchorPane prefHeight="754.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.personalizednewsrecsystem.AllArticleView">
    <children>
       <Button fx:id="backbutton" layoutX="516.0" layoutY="700.0" mnemonicParsing="false" onAction="#backbuttonClick" prefHeight="31.0" prefWidth="59.0" text="Back" />
-      <TextField editable="false" layoutX="15.0" layoutY="21.0" prefHeight="26.0" prefWidth="51.0" text="Admin" />
+      <TextField fx:id="Adminshow" editable="false" layoutX="15.0" layoutY="21.0" prefHeight="26.0" prefWidth="51.0" text="Admin" />
       <Button fx:id="viewbutton" layoutX="37.0" layoutY="700.0" mnemonicParsing="false" onAction="#viewbuttonClick" prefHeight="31.0" prefWidth="59.0" text="View" />
       <Label layoutX="268.0" layoutY="25.0" text="All Articles" />
       <ListView fx:id="articlelistview" layoutX="14.0" layoutY="54.0" prefHeight="639.0" prefWidth="572.0" />

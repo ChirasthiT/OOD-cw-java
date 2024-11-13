@@ -16,10 +16,15 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class APIHandler {
     private static String recommend = "http://127.0.0.1:8000/recommend";
     private static String addOrUpdate = "http://127.0.0.1:8000/add_or_update_article";
+
+    private static final ExecutorService executorService = Executors.newCachedThreadPool();
 
     public static Queue<Article> getRecommendations(String preferences, String email) {
         Queue<Article> articles = new LinkedList<>();
@@ -80,6 +85,11 @@ public class APIHandler {
             throw new RuntimeException("Error retrieving recommendations", e);
         }
         return articles;
+    }
+
+    // getRecommendations concurrent
+    public static CompletableFuture<Queue<Article>> getRecommendationsAsync(String preferences, String email) {
+        return CompletableFuture.supplyAsync(() -> getRecommendations(preferences, email), executorService);
     }
 
     // Overloaded method to get only one article
