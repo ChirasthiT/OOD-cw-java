@@ -21,11 +21,9 @@ public class LoginView extends HeadController {
     public Button back;
     public Label infoText;
 
-    public Stage stage;
     public Scene scene;
     public Button backbutton;
     private String fxml = "mainView.fxml";
-    protected String currentFxml = "loginView.fxml";
 
     public void mouseexit() {
         infoText.setText("");

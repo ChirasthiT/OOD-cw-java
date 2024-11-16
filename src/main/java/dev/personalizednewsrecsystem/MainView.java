@@ -36,7 +36,6 @@ public class MainView extends HeadController{
     public Button allArticleButton;
     private Queue<Article> articles;
     protected String id1, id2, id3;
-    protected String currentFxml = "mainView.fxml";
 
     public void setId1(String id1) {
         this.id1 = id1;
@@ -77,11 +76,6 @@ public class MainView extends HeadController{
         } else {
             textArea.setText("No articles to recommend");
         }
-    }
-
-    public void setArticlesAndTitles(TextArea textArea, Label label, Article article) {
-        textArea.setText(article.getContent());
-        label.setText(article.getTitle());
     }
 
     public void setArticlesAndTitles() throws ExecutionException, InterruptedException {
