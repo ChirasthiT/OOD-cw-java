@@ -53,20 +53,6 @@ public class DatabaseHandler {
         }
     }
 
-    public Connection getConnection() {
-        return connection;
-    }
-
-    public void closeConnection() {
-        if (connection != null) {
-            try {
-                this.connection.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
     public ResultSet fetchUser(String email, String pwd) {
         String sqlQuery = "SELECT * FROM user WHERE email = '" + email + "' AND password = '" + pwd + "'";
 

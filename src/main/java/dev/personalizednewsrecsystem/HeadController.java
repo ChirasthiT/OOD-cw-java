@@ -22,10 +22,6 @@ public class HeadController {
     protected static Stack<String> viewStack = new Stack<>();
     protected String currentFxml;
 
-    public void setCurrentFxml(String currentFxml) {
-        this.currentFxml = currentFxml;
-    }
-
     public void back(ActionEvent event) throws IOException {
         if (!viewStack.isEmpty()) {
             String previousFxml = viewStack.pop();
@@ -56,10 +52,6 @@ public class HeadController {
         return fxml;
     }
 
-    public void mouseExit() {
-        infoText.setText("");
-    }
-
     public void transferFXML(ActionEvent event, String email, String fxml) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
         Parent root;
@@ -79,28 +71,6 @@ public class HeadController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-    }
-
-    public void transferFXML(ActionEvent event, String email, String fxml, String articleId) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-        Parent root;
-
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            infoText.setText("Error loading the view.");
-            return;
-        }
-
-        HeadController view = loader.getController();
-        view.setUserEmail(email);
-        view.setFxml(fxml);
-
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-
     }
 
     public void transferFXML(ActionEvent event, String fxml) {

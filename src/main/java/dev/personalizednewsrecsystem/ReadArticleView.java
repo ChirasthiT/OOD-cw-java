@@ -52,10 +52,6 @@ public class ReadArticleView extends HeadController {
         this.articleId = articleId;
     }
 
-    public String getArticleId() {
-        return articleId;
-    }
-
     public void editbuttonClick() {
         articletitle.setEditable(true);
         articletextarea.setEditable(true);
