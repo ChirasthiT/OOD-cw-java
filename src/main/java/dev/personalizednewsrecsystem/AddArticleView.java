@@ -33,7 +33,7 @@ public class AddArticleView extends HeadController {
         back(event);
     }
 
-    public void addbuttonClick(ActionEvent event) {
+    public void addbuttonClick() {
         String title = titleArea.getText();
         String author = authorArea.getText();
         String content = contentArea.getText();

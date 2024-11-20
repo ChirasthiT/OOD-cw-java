@@ -146,4 +146,7 @@ public class MainView extends HeadController{
         addHistory("mainView.fxml");
         transferFXML(event, getUserEmail(), "allArticleView.fxml");
     }
+
+    // TODO: Add the add article functionality here
+    // TODO: Change the privilages into admin only
 }

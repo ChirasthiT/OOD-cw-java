@@ -33,11 +33,11 @@ public class IndexController extends HeadController{
         infoText.setText("Click to Sign-up");
     }
 
-    public void switchLogin(ActionEvent event) throws IOException {
+    public void switchLogin(ActionEvent event) {
             addHistory("index.fxml");
             transferFXML(event, "loginView.fxml");
     }
-    public void switchSignup(ActionEvent event) throws IOException {
+    public void switchSignup(ActionEvent event) {
             addHistory("index.fxml");
             transferFXML(event, "signupView.fxml");
     }
