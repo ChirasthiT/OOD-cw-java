@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>/Users/chirasthit/Developer/Assignments/OOD/OOD-cw-java/Personalized News Rec System/src/main/java/dev/personalizednewsrecsystem</OriginalElement>
+  <nodes>
+    <node x="-274.0" y="814.0">dev.personalizednewsrecsystem.MainView</node>
+    <node x="513.0" y="929.0">dev.personalizednewsrecsystem.ReadArticleView</node>
+    <node x="1315.0" y="1009.5">dev.personalizednewsrecsystem.LoginView</node>
+    <node x="1609.0" y="1078.5">dev.personalizednewsrecsystem.IndexController</node>
+    <node x="1990.8194588509855" y="986.5">dev.personalizednewsrecsystem.SignupView</node>
+    <node x="210.0" y="1044.0">dev.personalizednewsrecsystem.AllArticleView</node>
+    <node x="467.290784468747" y="11.756135454056903">dev.personalizednewsrecsystem.Article</node>
+    <node x="2518.30436071144" y="998.0">dev.personalizednewsrecsystem.ProfileView</node>
+    <node x="-98.49159815145981" y="-277.6086375533372">dev.personalizednewsrecsystem.DatabaseHandler</node>
+    <node x="1012.0" y="11.756135454056903">dev.personalizednewsrecsystem.User</node>
+    <node x="511.86874475179957" y="-277.6086375533372">dev.personalizednewsrecsystem.APIHandler</node>
+    <node x="914.0" y="1044.0">dev.personalizednewsrecsystem.AddArticleView</node>
+    <node x="1808.75" y="242.7975226010551">dev.personalizednewsrecsystem.HeadController</node>
+    <node x="1241.9722016414496" y="296.055596717101">dev.personalizednewsrecsystem.Index</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="dev.personalizednewsrecsystem.AllArticleView" target="dev.personalizednewsrecsystem.HeadController" relationship="GENERALIZATION">
+      <point x="0.0" y="154.5" />
+      <point x="346.5" y="1488.0" />
+      <point x="1934.0" y="1488.0" />
+      <point x="-41.75" y="212.0" />
+    </edge>
+    <edge source="dev.personalizednewsrecsystem.ReadArticleView" target="dev.personalizednewsrecsystem.HeadController" relationship="GENERALIZATION">
+      <point x="0.0" y="269.5" />
+      <point x="649.5" y="1478.0" />
+      <point x="1850.5" y="1478.0" />
+      <point x="-125.25" y="212.0" />
+    </edge>
+    <edge source="dev.personalizednewsrecsystem.ProfileView" target="dev.personalizednewsrecsystem.HeadController" relationship="GENERALIZATION">
+      <point x="0.0" y="200.5" />
+      <point x="2751.30436071144" y="1425.5" />
+      <point x="2101.0" y="1425.5" />
+      <point x="125.25" y="212.0" />
+    </edge>
+    <edge source="dev.personalizednewsrecsystem.DatabaseHandler" target="dev.personalizednewsrecsystem.User" relationship="CREATE">
+      <point x="53.75" y="-315.5" />
+      <point x="211.2584018485402" y="130.75" />
+      <point x="1119.5" y="130.75" />
+      <point x="0.0" y="108.5" />
+    </edge>
+    <edge source="dev.personalizednewsrecsystem.IndexController" target="dev.personalizednewsrecsystem.HeadController" relationship="GENERALIZATION">
+      <point x="123.0" y="-0.0" />
+      <point x="1880.0" y="1198.5" />
+      <point x="1880.0" y="454.7975226010551" />
+      <point x="-167.0" y="-0.0" />
+    </edge>
+    <edge source="dev.personalizednewsrecsystem.AllArticleView" target="dev.personalizednewsrecsystem.Article" relationship="TO_MANY">
+      <point x="0.0" y="-154.5" />
+      <point x="346.5" y="468.5" />
+      <point x="534.540784468747" y="468.5" />
+      <point x="-67.25" y="143.0" />
+    </edge>
+    <edge source="dev.personalizednewsrecsystem.SignupView" target="dev.personalizednewsrecsystem.HeadController" relationship="GENERALIZATION">
+      <point x="-233.0" y="-0.0" />
+      <point x="2264.0" y="1198.5" />
+      <point x="2264.0" y="454.7975226010551" />
+      <point x="167.0" y="-0.0" />
+    </edge>
+    <edge source="dev.personalizednewsrecsystem.MainView" target="dev.personalizednewsrecsystem.Article" relationship="TO_MANY">
+      <point x="0.0" y="-384.5" />
+      <point x="-57.0" y="804.0" />
+      <point x="601.25" y="804.0" />
+      <point x="601.25" y="468.5" />
+      <point x="534.540784468747" y="468.5" />
+      <point x="-67.25" y="143.0" />
+    </edge>
+    <edge source="dev.personalizednewsrecsystem.HeadController" target="dev.personalizednewsrecsystem.DatabaseHandler" relationship="CREATE">
+      <point x="0.0" y="-212.0" />
+      <point x="1975.75" y="951.0" />
+      <point x="68.50840184854019" y="951.0" />
+      <point x="-89.0" y="315.5" />
+    </edge>
+    <edge source="dev.personalizednewsrecsystem.DatabaseHandler" target="dev.personalizednewsrecsystem.Article" relationship="CREATE">
+      <point x="0.0" y="-315.5" />
+      <point x="157.5084018485402" y="280.7561354540569" />
+      <point x="134.5" y="126.0" />
+    </edge>
+    <edge source="dev.personalizednewsrecsystem.HeadController" target="dev.personalizednewsrecsystem.DatabaseHandler" relationship="TO_ONE">
+      <point x="167.0" y="-73.5" />
+      <point x="2264.0" y="381.2975226010551" />
+      <point x="2264.0" y="969.0" />
+      <point x="157.5084018485402" y="969.0" />
+      <point x="0.0" y="315.5" />
+    </edge>
+    <edge source="dev.personalizednewsrecsystem.AddArticleView" target="dev.personalizednewsrecsystem.HeadController" relationship="GENERALIZATION">
+      <point x="68.25" y="-154.5" />
+      <point x="1118.75" y="961.5" />
+      <point x="1934.0" y="961.5" />
+      <point x="-41.75" y="-212.0" />
+    </edge>
+    <edge source="dev.personalizednewsrecsystem.ReadArticleView" target="dev.personalizednewsrecsystem.Article" relationship="CREATE">
+      <point x="68.25" y="-269.5" />
+      <point x="717.75" y="919.0" />
+      <point x="1100.25" y="919.0" />
+      <point x="1100.25" y="371.5" />
+      <point x="669.040784468747" y="371.5" />
+      <point x="67.25" y="143.0" />
+    </edge>
+    <edge source="dev.personalizednewsrecsystem.MainView" target="dev.personalizednewsrecsystem.HeadController" relationship="GENERALIZATION">
+      <point x="0.0" y="384.5" />
+      <point x="-57.0" y="1593.0" />
+      <point x="2017.5" y="1593.0" />
+      <point x="41.75" y="212.0" />
+    </edge>
+    <edge source="dev.personalizednewsrecsystem.SignupView" target="dev.personalizednewsrecsystem.DatabaseHandler" relationship="TO_ONE">
+      <point x="-233.0" y="-73.5" />
+      <point x="2264.0" y="1125.0" />
+      <point x="2264.0" y="969.0" />
+      <point x="157.5084018485402" y="969.0" />
+      <point x="0.0" y="315.5" />
+    </edge>
+    <edge source="dev.personalizednewsrecsystem.ReadArticleView" target="dev.personalizednewsrecsystem.Article" relationship="TO_ONE">
+      <point x="-68.25" y="-269.5" />
+      <point x="581.25" y="531.0" />
+      <point x="534.540784468747" y="531.0" />
+      <point x="-67.25" y="143.0" />
+    </edge>
+    <edge source="dev.personalizednewsrecsystem.AllArticleView" target="dev.personalizednewsrecsystem.MainView" relationship="CREATE">
+      <point x="-136.5" y="-0.0" />
+      <point x="217.0" y="-0.0" />
+    </edge>
+    <edge source="dev.personalizednewsrecsystem.ProfileView" target="dev.personalizednewsrecsystem.User" relationship="TO_ONE">
+      <point x="0.0" y="-200.5" />
+      <point x="2751.30436071144" y="153.0" />
+      <point x="1173.25" y="153.0" />
+      <point x="53.75" y="108.5" />
+    </edge>
+    <edge source="dev.personalizednewsrecsystem.APIHandler" target="dev.personalizednewsrecsystem.Article" relationship="CREATE">
+      <point x="0.0" y="-97.0" />
+      <point x="785.8687447517996" y="371.5" />
+      <point x="669.040784468747" y="371.5" />
+      <point x="67.25" y="143.0" />
+    </edge>
+    <edge source="dev.personalizednewsrecsystem.SignupView" target="dev.personalizednewsrecsystem.DatabaseHandler" relationship="CREATE">
+      <point x="-100.5" y="-212.0" />
+      <point x="2123.3194588509855" y="890.25" />
+      <point x="68.50840184854019" y="890.25" />
+      <point x="-89.0" y="315.5" />
+    </edge>
+    <edge source="dev.personalizednewsrecsystem.AddArticleView" target="dev.personalizednewsrecsystem.Article" relationship="CREATE">
+      <point x="-68.25" y="-154.5" />
+      <point x="982.25" y="371.5" />
+      <point x="669.040784468747" y="371.5" />
+      <point x="67.25" y="143.0" />
+    </edge>
+    <edge source="dev.personalizednewsrecsystem.LoginView" target="dev.personalizednewsrecsystem.HeadController" relationship="GENERALIZATION">
+      <point x="0.0" y="-189.0" />
+      <point x="1447.0" y="971.5" />
+      <point x="1850.5" y="971.5" />
+      <point x="-125.25" y="-212.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.5399413368142653" showDependencies="true" x="1177.7903874413832" y="435.6101645551315" />
+  <SelectedNodes>
+    <node>dev.personalizednewsrecsystem.AddArticleView</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
