@@ -26,18 +26,18 @@ public class ProfileView extends HeadController {
             if (email == null || email.isEmpty()) {
                 System.out.println("User email not set yet.");
             } else {
-                databaseHandler.adminCheckAsync(email).thenAccept(isAdmin -> {
+                DatabaseHandler.adminCheckAsync(email).thenAccept(isAdmin -> {
                     Platform.runLater(() -> Adminshow.setVisible(isAdmin));
                 }).exceptionally(ex -> null);
 
                 savebutton.setVisible(false);
-                user = databaseHandler.getUserInfo(email);
+                user = DatabaseHandler.getUserInfo(email);
                 username.setText(user.getName());
                 emailfield.setText(user.getEmail());
-                highlightPreferences(databaseHandler.getUserPreferences(email));
+                highlightPreferences(DatabaseHandler.getUserPreferences(email));
                 preflistview.setEditable(false);
 
-                databaseHandler.getUserHistoryAsync(email).thenAccept(history -> {
+                DatabaseHandler.getUserHistoryAsync(email).thenAccept(history -> {
                     Platform.runLater(() -> historylistview.setItems(history));
                 }).exceptionally(ex -> null);
 
@@ -92,8 +92,8 @@ public class ProfileView extends HeadController {
     }
 
     private boolean registerUser(String email, String password, String name, ObservableList<String> preference) {
-        databaseHandler.addUser(email, password, name);
-        databaseHandler.addPreferences(email, preference);
+        DatabaseHandler.addUser(email, password, name);
+        DatabaseHandler.addPreferences(email, preference);
         return true;
     }
 

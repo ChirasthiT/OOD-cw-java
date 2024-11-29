@@ -5,7 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
@@ -18,7 +17,6 @@ public class HeadController {
     public Label infoText;
     private String userEmail;
     private String fxml;
-    protected DatabaseHandler databaseHandler = new DatabaseHandler();
     protected static Stack<String> viewStack = new Stack<>();
     protected String currentFxml;
 
@@ -40,7 +38,6 @@ public class HeadController {
     }
 
     public void setUserEmail(String userEmail) {
-        System.out.println("Setting user email");
         this.userEmail = userEmail;
     }
 

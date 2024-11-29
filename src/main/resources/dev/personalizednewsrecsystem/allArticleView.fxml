@@ -14,6 +14,5 @@
       <Label layoutX="268.0" layoutY="25.0" text="All Articles" />
       <ListView fx:id="articlelistview" layoutX="14.0" layoutY="54.0" prefHeight="639.0" prefWidth="572.0" />
       <Button fx:id="Profile" layoutX="532.0" layoutY="10.0" mnemonicParsing="false" onAction="#profilebuttonClick" text="Profile" />
-      <Button fx:id="addarticlebutton" layoutX="128.0" layoutY="701.0" mnemonicParsing="false" onAction="#addArtcleClick" text="Add Article" />
    </children>
 </AnchorPane>

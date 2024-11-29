@@ -25,5 +25,6 @@
       <Button fx:id="allArticleButton" layoutX="20.0" layoutY="700.0" mnemonicParsing="false" onAction="#allArticlebuttonClick" prefHeight="31.0" prefWidth="90.0" text="All Articles" />
       <Label layoutX="237.0" layoutY="10.0" text="Reccomendations" />
       <Button fx:id="profile" layoutX="531.0" layoutY="11.0" mnemonicParsing="false" onAction="#profilebuttonClick" text="Profile" />
+      <Button fx:id="addarticlebutton" layoutX="128.0" layoutY="701.0" mnemonicParsing="false" onAction="#addArtcleClick" text="Add Article" />
    </children>
 </AnchorPane>

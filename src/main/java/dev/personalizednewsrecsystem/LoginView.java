@@ -1,14 +1,12 @@
 package dev.personalizednewsrecsystem;
 
+import dev.personalizednewsrecsystem.HeadController;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -49,7 +47,7 @@ public class LoginView extends HeadController {
 
 
             try {
-                ResultSet rs = databaseHandler.fetchUser(email, pwd);
+                ResultSet rs = DatabaseHandler.fetchUser(email, pwd);
 
                 // Checking if any user exists with the entered email and password
                 if (rs != null && rs.next()) {

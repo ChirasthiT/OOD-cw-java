@@ -1,32 +1,28 @@
 package dev.personalizednewsrecsystem;
 
-import com.google.gson.*;
+import dev.personalizednewsrecsystem.Article;
 import javafx.scene.control.Alert;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class APIHandler {
-    private static String recommend = "http://127.0.0.1:8000/recommend";
-    private static String addOrUpdate = "http://127.0.0.1:8000/add_or_update_article";
+    private static String recommend = "http://127.0.0.1:8001/recommend";
+    private static String addOrUpdate = "http://127.0.0.1:8001/add_or_update_article";
 
     private static final ExecutorService executorService = Executors.newCachedThreadPool();
 
-    public static Queue<Article> getRecommendations(String preferences, String email) {
+    private static Queue<Article> getRecommendations(String preferences, String email) {
         Queue<Article> articles = new LinkedList<>();
         try {
             // Setup connection
@@ -91,12 +87,6 @@ public class APIHandler {
     public static CompletableFuture<Queue<Article>> getRecommendationsAsync(String preferences, String email) {
         return CompletableFuture.supplyAsync(() -> getRecommendations(preferences, email), executorService);
     }
-
-    // Overloaded method to get only one article
-//    public static Article getRecommendations(String preferences, boolean threeorone) {
-//        List<Article> allArticles = getRecommendations(preferences);
-//        return allArticles.getFirst();
-//    }
 
     public static void addorUpdate(Article article) {
         try {

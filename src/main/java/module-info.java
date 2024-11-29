@@ -13,4 +13,5 @@ module dev.personalizednewsrecsystem {
 
     opens dev.personalizednewsrecsystem to javafx.fxml;
     exports dev.personalizednewsrecsystem;
+
 }
