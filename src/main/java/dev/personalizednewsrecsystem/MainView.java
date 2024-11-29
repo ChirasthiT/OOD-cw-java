@@ -13,12 +13,11 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
-public class MainView extends HeadController{
+public class MainView extends HeadController {
     public TextField Adminshow;
     public Label articleLabel1;
     public TextArea article1;
@@ -34,6 +33,7 @@ public class MainView extends HeadController{
     public Button skip3;
     public Button backbutton;
     public Button allArticleButton;
+    public Button addarticlebutton;
     private Queue<Article> articles;
     protected String id1, id2, id3;
 
@@ -53,8 +53,10 @@ public class MainView extends HeadController{
             if (email == null || email.isEmpty()) {
                 System.out.println("User email not set yet.");
             } else {
-                databaseHandler.adminCheckAsync(email).thenAccept(isAdmin -> {
-                    Platform.runLater(() -> Adminshow.setVisible(isAdmin));
+                DatabaseHandler.adminCheckAsync(email)
+                        .thenAccept(isAdmin -> {
+                            Adminshow.setVisible(isAdmin);
+                            addarticlebutton.setVisible(isAdmin);
                 }).exceptionally(ex -> null);
 
                 try {
@@ -79,7 +81,7 @@ public class MainView extends HeadController{
     }
 
     public void setArticlesAndTitles() throws ExecutionException, InterruptedException {
-        String pref = databaseHandler.getUserPreferences(getUserEmail());
+        String pref = DatabaseHandler.getUserPreferences(getUserEmail());
 
         articles = APIHandler.getRecommendationsAsync(pref, getUserEmail()).get();
 
@@ -110,15 +112,15 @@ public class MainView extends HeadController{
         if (clickedButton == read1) {
             addHistory("mainView.fxml");
             transfertoArticleView(id1, event, getUserEmail());
-            databaseHandler.addInteraction(getUserEmail(), id1, "view");
+            DatabaseHandler.addInteraction(getUserEmail(), id1, "view");
         } else if (clickedButton == read2) {
             addHistory("mainView.fxml");
             transfertoArticleView(id2, event, getUserEmail());
-            databaseHandler.addInteraction(getUserEmail(), id2, "view");
+            DatabaseHandler.addInteraction(getUserEmail(), id2, "view");
         } else if (clickedButton == read3) {
             addHistory("mainView.fxml");
             transfertoArticleView(id3, event, getUserEmail());
-            databaseHandler.addInteraction(getUserEmail(), id3, "view");
+            DatabaseHandler.addInteraction(getUserEmail(), id3, "view");
         }
     }
 
@@ -127,13 +129,13 @@ public class MainView extends HeadController{
 
         if (clickedButton == skip1) {
             setArticlesAndTitles(article1, articleLabel1, this::setId1);
-            databaseHandler.addInteraction(getUserEmail(), id1, "skip");
+            DatabaseHandler.addInteraction(getUserEmail(), id1, "skip");
         } else if (clickedButton == skip2) {
             setArticlesAndTitles(article2, articleLabel2, this::setId1);
-            databaseHandler.addInteraction(getUserEmail(), id2, "skip");
+            DatabaseHandler.addInteraction(getUserEmail(), id2, "skip");
         } else if (clickedButton == skip3) {
             setArticlesAndTitles(article3, articleLabel3, this::setId1);
-            databaseHandler.addInteraction(getUserEmail(), id3, "skip");
+            DatabaseHandler.addInteraction(getUserEmail(), id3, "skip");
         }
     }
 
@@ -147,6 +149,8 @@ public class MainView extends HeadController{
         transferFXML(event, getUserEmail(), "allArticleView.fxml");
     }
 
-    // TODO: Add the add article functionality here
-    // TODO: Change the privilages into admin only
+    public void addArtcleClick(ActionEvent event) throws IOException {
+        addHistory("mainView.fxml");
+        transferFXML(event, getUserEmail(), "addArticleView.fxml");
+    }
 }

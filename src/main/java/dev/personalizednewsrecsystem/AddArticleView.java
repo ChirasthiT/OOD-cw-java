@@ -1,7 +1,6 @@
 package dev.personalizednewsrecsystem;
 
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 
@@ -22,7 +21,7 @@ public class AddArticleView extends HeadController {
             if (email == null || email.isEmpty()) {
                 System.out.println("User email not set yet.");
             } else {
-                databaseHandler.adminCheckAsync(email).thenAccept(isAdmin -> {
+                DatabaseHandler.adminCheckAsync(email).thenAccept(isAdmin -> {
                     Platform.runLater(() -> Adminshow.setVisible(isAdmin));
                 }).exceptionally(ex -> null);
             }

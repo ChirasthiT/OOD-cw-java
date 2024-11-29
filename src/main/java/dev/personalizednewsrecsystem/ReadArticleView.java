@@ -30,7 +30,7 @@ public class ReadArticleView extends HeadController {
             } else {
                 boolean adCheck;
                 try {
-                    adCheck = databaseHandler.adminCheckAsync(email).get();
+                    adCheck = DatabaseHandler.adminCheckAsync(email).get();
                 } catch (InterruptedException | ExecutionException e) {
                     throw new RuntimeException(e);
                 }
@@ -40,7 +40,7 @@ public class ReadArticleView extends HeadController {
                 savebutton.setVisible(adCheck);
                 deletebutton.setVisible(adCheck);
 
-                article = databaseHandler.fetchArticle(articleId);
+                article = DatabaseHandler.fetchArticle(articleId);
                 articletitle.setText(article.getTitle());
                 articletextarea.setText(article.getContent());
                 authorarea.setText(article.getAuthor());
@@ -59,7 +59,7 @@ public class ReadArticleView extends HeadController {
     }
 
     public void deletebuttonClick(ActionEvent event) throws IOException {
-        boolean deleted = databaseHandler.deleteArticle(articleId);
+        boolean deleted = DatabaseHandler.deleteArticle(articleId);
         if (deleted) {
             back(event);
         } else {
@@ -80,11 +80,11 @@ public class ReadArticleView extends HeadController {
     }
 
     public void likebuttonclick() {
-        databaseHandler.addInteraction(getUserEmail(), articleId, "like");
+        DatabaseHandler.addInteraction(getUserEmail(), articleId, "like");
     }
 
     public void dislikebuttonclick() {
-        databaseHandler.addInteraction(getUserEmail(), articleId, "dislike");
+        DatabaseHandler.addInteraction(getUserEmail(), articleId, "dislike");
     }
 
     public void backButtonClick(ActionEvent event) throws IOException {

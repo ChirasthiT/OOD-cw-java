@@ -1,45 +1,42 @@
 package dev.personalizednewsrecsystem;
 import com.mongodb.MongoException;
+import dev.personalizednewsrecsystem.User;
+import dev.personalizednewsrecsystem.Article;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.function.Supplier;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import javafx.scene.control.ListView;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
 public class DatabaseHandler {
-    private String sqlUrl = "jdbc:mysql://localhost:3306/OOD_CW";
-    private String sqlUsername = "root";
-    private String sqlPassword = "chira@root";
-    private Connection connection;
-    private String sqlDriver = "com.mysql.cj.jdbc.Driver";
-    private String mongoUri = "mongodb://localhost:27017";
-    private String mongodbName = "OOD_CW";
-    private String mongoCollection = "articles";
-    MongoCollection<Document> collection;
-
-    private final ExecutorService executorService = Executors.newCachedThreadPool();
+    private static String sqlUrl = "jdbc:mysql://localhost:3306/OOD_CW";
+    private static String sqlUsername = "root";
+    private static String sqlPassword = "chira@root";
+    private static Connection connection;
+    private static String sqlDriver = "com.mysql.cj.jdbc.Driver";
+    private static String mongoUri = "mongodb+srv://Cluster61823:25882588@cluster61823.ppkuv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster61823";
+    private static String mongodbName = "OOD_CW";
+    private static String mongoCollection = "articles";
+    protected static MongoCollection<Document> collection;
+    private static final ExecutorService executorService = Executors.newCachedThreadPool();
 
     public DatabaseHandler() {
         try {
             // Loading driver
-            Class.forName(this.sqlDriver);
+            Class.forName(sqlDriver);
             // Connection
-            connection = DriverManager.getConnection(this.sqlUrl, this.sqlUsername, this.sqlPassword);
+            connection = DriverManager.getConnection(sqlUrl, sqlUsername, sqlPassword);
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
@@ -53,12 +50,14 @@ public class DatabaseHandler {
         }
     }
 
-    public ResultSet fetchUser(String email, String pwd) {
+    public static void initialize() {}
+
+    public static ResultSet fetchUser(String email, String pwd) {
         String sqlQuery = "SELECT * FROM user WHERE email = '" + email + "' AND password = '" + pwd + "'";
 
         if (connection != null) {
             try {
-                Statement statement = this.connection.createStatement();
+                Statement statement = connection.createStatement();
                 return statement.executeQuery(sqlQuery);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -67,11 +66,11 @@ public class DatabaseHandler {
         return null;
     }
 
-    public void addUser(String email, String password, String name) {
+    public static void addUser(String email, String password, String name) {
         if (connection != null) {
             try {
                 String sqlQuery = "INSERT INTO user (email, password, username) VALUES ('" + email + "', '" + password + "', '" + name + "')";
-                Statement statement = this.connection.createStatement();
+                Statement statement = connection.createStatement();
                 statement.executeUpdate(sqlQuery);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -79,13 +78,13 @@ public class DatabaseHandler {
         }
     }
 
-    public String getUserPreferences(String email) {
+    public static String getUserPreferences(String email) {
         String sqlQuery = "SELECT user_pref FROM preferences WHERE email = '" + email + "'";
         String preferences = null;
 
         if (connection != null) {
             try {
-                Statement statement = this.connection.createStatement();
+                Statement statement = connection.createStatement();
                 ResultSet rs = statement.executeQuery(sqlQuery);
                 while (rs.next()) {
                     preferences = rs.getString("user_pref");
@@ -97,12 +96,12 @@ public class DatabaseHandler {
         return preferences;
     }
 
-    public void addPreferences(String email, ObservableList<String> selectedPreferences) {
+    public static void addPreferences(String email, ObservableList<String> selectedPreferences) {
         String preferences = String.join(",", selectedPreferences);
         if (connection != null) {
             try {
                 String sqlQuery = "INSERT INTO preferences (email, user_pref) VALUES ('" + email + "', '" + preferences + "')";
-                Statement statement = this.connection.createStatement();
+                Statement statement = connection.createStatement();
                 statement.executeUpdate(sqlQuery);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -110,11 +109,11 @@ public class DatabaseHandler {
         }
     }
 
-    public boolean checkEmail(String email) {
+    public static boolean checkEmail(String email) {
         if (connection != null) {
             try {
                 String sqlQuery = "SELECT COUNT(*) FROM user WHERE email = '" + email + "'";
-                Statement statement = this.connection.createStatement();
+                Statement statement = connection.createStatement();
                 ResultSet rs = statement.executeQuery(sqlQuery);
                 if (rs.next()) {
                     int count = rs.getInt(1);
@@ -127,12 +126,12 @@ public class DatabaseHandler {
         return false;
     }
 
-    public boolean adminCheck(String email) {
+    private static boolean adminCheck(String email) {
         System.out.println(email);
         if (connection != null) {
             String sqlQuery = "SELECT admin FROM user WHERE email = '" + email + "'";
             try{
-                Statement statement = this.connection.createStatement();
+                Statement statement = connection.createStatement();
                 ResultSet rs = statement.executeQuery(sqlQuery);
                 if (rs.next()) {
                     int isAdmin = rs.getInt("admin");
@@ -150,11 +149,11 @@ public class DatabaseHandler {
     }
 
     // admincheck concurrent
-    public CompletableFuture<Boolean> adminCheckAsync(String email) {
+    public static CompletableFuture<Boolean> adminCheckAsync(String email) {
         return CompletableFuture.supplyAsync(() -> adminCheck(email), executorService);
     }
 
-    public Article fetchArticle(String id) {
+    public static Article fetchArticle(String id) {
         try {
             ObjectId objectId = new ObjectId(id);
             Document article = collection.find(new Document("_id", objectId)).first();
@@ -174,19 +173,19 @@ public class DatabaseHandler {
         }
     }
 
-    public void addInteraction(String email, String articleId, String type) {
+    public static void addInteraction(String email, String articleId, String type) {
         String sqlQuery = "INSERT INTO history (email, article_id, interaction_type, interaction_count) " +
                 "VALUES ('" + email + "', '" + articleId + "', '" + type + "', 1) " +
                 "ON DUPLICATE KEY UPDATE interaction_count = interaction_count + 1";
         try{
-            Statement statement = this.connection.createStatement();
+            Statement statement = connection.createStatement();
             statement.executeUpdate(sqlQuery);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public boolean deleteArticle(String id) {
+    public static boolean deleteArticle(String id) {
         try {
             ObjectId objectId = new ObjectId(id);
             long deletedCount = collection.deleteOne(new Document("_id", objectId)).getDeletedCount();
@@ -196,12 +195,12 @@ public class DatabaseHandler {
         }
     }
 
-    public User getUserInfo(String email) {
+    public static User getUserInfo(String email) {
         String sqlQuery = "SELECT * FROM user WHERE email = '" + email + "'";
         User user = null;
 
         try {
-            Statement statement = this.connection.createStatement();
+            Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(sqlQuery);
 
             if (rs.next()) {
@@ -218,13 +217,13 @@ public class DatabaseHandler {
         return user;
     }
 
-    public ObservableList<String> getUserHistory(String email) {
+    private static ObservableList<String> getUserHistory(String email) {
         String sqlQuery = "SELECT article_id, interaction_type, interaction_count FROM history WHERE email = '" + email + "'";
         ObservableList<String> historyList = FXCollections.observableArrayList();
 
         if (connection != null) {
             try {
-                Statement statement = this.connection.createStatement();
+                Statement statement = connection.createStatement();
                 ResultSet rs = statement.executeQuery(sqlQuery);
 
                 while (rs.next()) {
@@ -244,11 +243,11 @@ public class DatabaseHandler {
         return historyList;
     }
 
-    public CompletableFuture<ObservableList<String>> getUserHistoryAsync(String email) {
+    public static CompletableFuture<ObservableList<String>> getUserHistoryAsync(String email) {
         return CompletableFuture.supplyAsync(() -> getUserHistory(email), executorService);
     }
 
-    public Map<String, Article> fetchAllArticles() {
+    private static Map<String, Article> fetchAllArticles() {
         Map<String, Article> articlesMap = new HashMap<>();
 
         for (Document doc : collection.find()) {
@@ -265,7 +264,7 @@ public class DatabaseHandler {
     }
 
     // fetchAllArticles concurrent
-    public CompletableFuture<Map<String, Article>> fetchAllArticlesAsync() {
-        return CompletableFuture.supplyAsync(this::fetchAllArticles, executorService);
+    public static CompletableFuture<Map<String, Article>> fetchAllArticlesAsync() {
+        return CompletableFuture.supplyAsync(DatabaseHandler::fetchAllArticles, executorService);
     }
 }

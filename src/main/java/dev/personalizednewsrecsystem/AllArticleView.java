@@ -12,12 +12,11 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-public class AllArticleView extends HeadController{
+public class AllArticleView extends HeadController {
 
     public Button backbutton;
     public Button viewbutton;
     public ListView<String> articlelistview;
-    public Button addarticlebutton;
     public TextField Adminshow;
     Map<String, Article> articleMap;
 
@@ -27,12 +26,12 @@ public class AllArticleView extends HeadController{
             if (email == null || email.isEmpty()) {
                 System.out.println("User email not set yet.");
             } else {
-                databaseHandler.adminCheckAsync(email).thenAccept(isAdmin -> {
+                DatabaseHandler.adminCheckAsync(email).thenAccept(isAdmin -> {
                     Platform.runLater(() -> Adminshow.setVisible(isAdmin));
                 }).exceptionally(ex -> null);
 
                 try {
-                    articleMap = databaseHandler.fetchAllArticlesAsync().get();
+                    articleMap = DatabaseHandler.fetchAllArticlesAsync().get();
                 } catch (InterruptedException | ExecutionException e) {
                     throw new RuntimeException(e);
                 }
@@ -63,8 +62,5 @@ public class AllArticleView extends HeadController{
         }
     }
 
-    public void addArtcleClick(ActionEvent event) throws IOException {
-        addHistory("allArticleView.fxml");
-        transferFXML(event, getUserEmail(), "addArticleView.fxml");
-    }
+
 }
