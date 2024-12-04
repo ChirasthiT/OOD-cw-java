@@ -18,7 +18,6 @@ public class Index extends Application {
     }
 
     public static void main(String[] args) {
-        // TODO
         DatabaseHandler databaseHandler = new DatabaseHandler();
         launch();
     }

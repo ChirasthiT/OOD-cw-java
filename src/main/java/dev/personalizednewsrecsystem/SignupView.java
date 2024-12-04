@@ -18,8 +18,6 @@ public class SignupView extends HeadController {
     public Button signbutton;
     public Button backbutton;
     public ListView<String> signpref;
-    DatabaseHandler databaseHandler = new DatabaseHandler();
-
     private static final String EMAIL_REGEX = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
     private static final Pattern EMAIL_PATTERN = Pattern.compile(EMAIL_REGEX);
     private String email;
@@ -50,7 +48,7 @@ public class SignupView extends HeadController {
         signpref.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE); // Multi selection
     }
 
-    public void signButtonClick(ActionEvent event) throws IOException {
+    public void signButtonClick(ActionEvent event) {
         email = signemail.getText().trim();
         String password = signpass.getText();
         String confirmPassword = signconfpass.getText();
@@ -73,6 +71,10 @@ public class SignupView extends HeadController {
             return;
         }
 
+        if (selectedPreferences.isEmpty() || selectedPreferences.size() < 3) {
+            infoText.setText("Select atleast 3 preferences");
+        }
+
         if (registerUser(email, password, name, selectedPreferences)) {
             infoText.setText("User registered successfully.");
             transferFXML(event, email, "mainView.fxml");
@@ -82,8 +84,8 @@ public class SignupView extends HeadController {
     }
 
     private boolean registerUser(String email, String password, String name, ObservableList<String> preference) {
-        databaseHandler.addUser(email, password, name);
-        databaseHandler.addPreferences(email, preference);
+        DatabaseHandler.addUser(email, password, name);
+        DatabaseHandler.addPreferences(email, preference);
         return true;
     }
 
@@ -93,7 +95,7 @@ public class SignupView extends HeadController {
 
     public boolean isValidEmail(String email) {
         Matcher matcher = EMAIL_PATTERN.matcher(email);
-        return matcher.matches() && !databaseHandler.checkEmail(email);
+        return matcher.matches() && !DatabaseHandler.checkEmail(email);
     }
 }
 

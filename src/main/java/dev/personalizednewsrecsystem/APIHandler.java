@@ -6,8 +6,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.HttpRetryException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.LinkedList;
@@ -19,7 +21,6 @@ import java.util.concurrent.Executors;
 public class APIHandler {
     private static String recommend = "http://127.0.0.1:8001/recommend";
     private static String addOrUpdate = "http://127.0.0.1:8001/add_or_update_article";
-
     private static final ExecutorService executorService = Executors.newCachedThreadPool();
 
     private static Queue<Article> getRecommendations(String preferences, String email) {
@@ -40,15 +41,12 @@ public class APIHandler {
             }
 
             int responseCode = conn.getResponseCode();
-            if (responseCode == 404) {
+            if (responseCode != 200) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setHeaderText("An error has occurred");
                 alert.setContentText("No Articles found for your preferences");
-                alert.showAndWait();
                 return articles;  // Return an empty queue if 404
-            } else if (responseCode != 200) {
-                throw new RuntimeException("Error: Received HTTP response code " + responseCode);
             }
 
             // Read the response
@@ -77,8 +75,12 @@ public class APIHandler {
                 articles.add(article);
             }
 
-        } catch (Exception e) {
-            throw new RuntimeException("Error retrieving recommendations", e);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("An error has occurred");
+            alert.setContentText("Error connecting the API endpoint");
+            alert.showAndWait();
         }
         return articles;
     }
@@ -117,8 +119,12 @@ public class APIHandler {
                 System.out.println("Failed to add/update the article. Response Code: " + responseCode);
             }
 
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("An error has occurred");
+            alert.setContentText("Error connecting the API endpoint");
+            alert.showAndWait();
         }
     }
 }

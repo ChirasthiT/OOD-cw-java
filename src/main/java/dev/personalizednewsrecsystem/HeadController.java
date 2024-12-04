@@ -49,7 +49,7 @@ public class HeadController {
         return fxml;
     }
 
-    public void transferFXML(ActionEvent event, String email, String fxml) throws IOException {
+    public void transferFXML(ActionEvent event, String email, String fxml) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
         Parent root;
 

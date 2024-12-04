@@ -68,7 +68,7 @@ public class ProfileView extends HeadController {
                 "Autopilot", "crashes", "NHTSA", "software", "mobility",
                 "fluid", "truck", "Arabia", "firms", "investment", "Saudi", "startups", "venture",
                 "farmer", "Navin", "partner", "stage", "workforce", "Eclipse", "Glancy", "York"
-        ); // TODO Update the preferences and the logic for automatic highlighting and changing
+        );
 
         preflistview.setItems(allPreferences);
 
