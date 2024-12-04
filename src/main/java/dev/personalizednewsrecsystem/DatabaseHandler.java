@@ -16,6 +16,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import javafx.scene.control.Alert;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -37,20 +38,17 @@ public class DatabaseHandler {
             Class.forName(sqlDriver);
             // Connection
             connection = DriverManager.getConnection(sqlUrl, sqlUsername, sqlPassword);
-        } catch (ClassNotFoundException | SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        try {
             MongoClient mongoClient = MongoClients.create(mongoUri);
             MongoDatabase database = mongoClient.getDatabase(mongodbName);
             collection = database.getCollection(mongoCollection);
-        } catch (MongoException e) {
-            throw new RuntimeException(e);
+        } catch (ClassNotFoundException | SQLException | MongoException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("An error has occurred");
+            alert.setContentText("Error connecting the database");
+            alert.showAndWait();
         }
     }
-
-    public static void initialize() {}
 
     public static ResultSet fetchUser(String email, String pwd) {
         String sqlQuery = "SELECT * FROM user WHERE email = '" + email + "' AND password = '" + pwd + "'";

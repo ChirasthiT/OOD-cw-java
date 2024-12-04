@@ -1,5 +1,7 @@
 package dev.personalizednewsrecsystem;
 
+import com.mongodb.MongoException;
+import com.mongodb.client.FindIterable;
 import dev.personalizednewsrecsystem.HeadController;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
@@ -7,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import org.bson.Document;
 
 import java.io.IOException;
 import java.sql.ResultSet;
@@ -40,11 +43,10 @@ public class LoginView extends HeadController {
     }
 
 
-    public void loginClick(ActionEvent event) throws IOException {
+    public void loginClick(ActionEvent event) {
         if (!loginemail.getText().isEmpty() && !loginpword.getText().isEmpty()) {
             String email = loginemail.getText().trim();
             String pwd = loginpword.getText();
-
 
             try {
                 ResultSet rs = DatabaseHandler.fetchUser(email, pwd);
