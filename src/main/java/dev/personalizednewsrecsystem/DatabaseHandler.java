@@ -5,6 +5,7 @@ import dev.personalizednewsrecsystem.Article;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,6 +39,7 @@ public class DatabaseHandler {
             Class.forName(sqlDriver);
             // Connection
             connection = DriverManager.getConnection(sqlUrl, sqlUsername, sqlPassword);
+            // Mongo Connection
             MongoClient mongoClient = MongoClients.create(mongoUri);
             MongoDatabase database = mongoClient.getDatabase(mongodbName);
             collection = database.getCollection(mongoCollection);
@@ -58,7 +60,11 @@ public class DatabaseHandler {
                 Statement statement = connection.createStatement();
                 return statement.executeQuery(sqlQuery);
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("An error has occurred");
+                alert.setContentText("Error connecting the database");
+                alert.showAndWait();
             }
         }
         return null;
@@ -67,7 +73,7 @@ public class DatabaseHandler {
     public static void addUser(String email, String password, String name) {
         if (connection != null) {
             try {
-                String sqlQuery = "INSERT INTO user (email, password, username) VALUES ('" + email + "', '" + password + "', '" + name + "')";
+                String sqlQuery = "UPDATE user SET password = '" + password + "', username = '" + name + "' WHERE email = '" + email + "'";
                 Statement statement = connection.createStatement();
                 statement.executeUpdate(sqlQuery);
             } catch (SQLException e) {
@@ -133,12 +139,8 @@ public class DatabaseHandler {
                 ResultSet rs = statement.executeQuery(sqlQuery);
                 if (rs.next()) {
                     int isAdmin = rs.getInt("admin");
-                    System.out.println("Admin status found: " + isAdmin);
                     return isAdmin == 1;
-                } else {
-                    System.out.println("No user found with the given email.");
                 }
-
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

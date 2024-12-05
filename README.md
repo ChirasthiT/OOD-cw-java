@@ -29,10 +29,18 @@ To provide a tailored reading experience for users while enabling admins to mana
   2. Make sure you have installed MySQL Server (and MySQL workbench preferred)
   3. Create a schema named **_OOD_CW_**
   4. Import the the ood_cw.sql
+  5. Change the **username** and **password** in the code to your MySQL Server username and password
+     1. Line 26 and 27 in DatabaseHandler.java
+     2. Line 17 and 17 in main.py
 * For ML API 
   1. main.py is available in the ML folder
   2. Install the requirements using pip, requirements.txt is available. 
   3. Run main.py, the default port is set to **8001** if there is an existing process on that port make sure to terminate it before running the python file.
+  ```bash
+      cd ML
+      pip install -r requirements.txt
+      python main.py
+    ```
 * Make sure you have the database running in the port 3306(default)
 
 **All the ports are hardcoded into the code make sure you are running on the processes in the exact ports**

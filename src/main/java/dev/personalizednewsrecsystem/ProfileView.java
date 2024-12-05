@@ -73,10 +73,11 @@ public class ProfileView extends HeadController {
         preflistview.setItems(allPreferences);
 
         // Select the items in the ListView that match user preferences
+        preflistview.getSelectionModel().clearSelection();
         for (String preference : splitSelectedPreferences) {
-            int index = allPreferences.indexOf(preference);
+            int index = allPreferences.indexOf(preference.trim());
             if (index >= 0) {
-                preflistview.getSelectionModel().select(index); // Highlight the preference
+                preflistview.getSelectionModel().select(index);
             }
         }
     }

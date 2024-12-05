@@ -3,3 +3,4 @@ scikit-learn
 pymongo
 pymysql
 uvicorn
+cryptography
